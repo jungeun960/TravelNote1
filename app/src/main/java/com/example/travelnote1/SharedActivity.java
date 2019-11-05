@@ -20,7 +20,7 @@ public class SharedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Shared1Activity.class);
-                startActivity(intent);//dd
+                startActivity(intent);//ddff
             }
         });
 
