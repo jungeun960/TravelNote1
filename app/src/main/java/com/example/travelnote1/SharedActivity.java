@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 
 public class SharedActivity extends AppCompatActivity {
 
@@ -34,7 +36,7 @@ public class SharedActivity extends AppCompatActivity {
         arrayList = new ArrayList<>();
 
         // 리사이클러뷰에 mainAdapter 객체 지정.
-        shareAdapter = new ShareAdapter(arrayList);
+        shareAdapter = new ShareAdapter(this, arrayList);
         recyclerView.setAdapter(shareAdapter);
 
         Share mainData1 = new Share(R.mipmap.ic_launcher, "최복치","마카롱 맛집 공유합니다.","파리 3박 4일");
@@ -45,24 +47,24 @@ public class SharedActivity extends AppCompatActivity {
         arrayList.add(mainData3);
         shareAdapter.notifyDataSetChanged();
 
-        Button btn_add = (Button)findViewById(R.id.button2);
-        btn_add.setOnClickListener(new View.OnClickListener() {// 추가 버튼 클릭 시
-            @Override
-            public void onClick(View v) {
-                Share mainData = new Share(R.mipmap.ic_launcher, "홍홍","우왕","리사이클러뷰");
-                arrayList.add(mainData); // 내용 추가
-                shareAdapter.notifyDataSetChanged(); // 새로고침해 반영
-            }
-        });
-
-//        Button button = (Button)findViewById(R.id.button2);
-//        button.setOnClickListener(new View.OnClickListener() {
+//        Button btn_add = (Button)findViewById(R.id.button2);
+//        btn_add.setOnClickListener(new View.OnClickListener() {// 추가 버튼 클릭 시
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(),Shared1Activity.class);
-//                startActivity(intent);//ddff
+//                Share mainData = new Share(R.mipmap.ic_launcher, "홍홍","우왕","리사이클러뷰");
+//                arrayList.add(mainData); // 내용 추가
+//                shareAdapter.notifyDataSetChanged(); // 새로고침해 반영
 //            }
 //        });
+
+        Button button = (Button)findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Shared1Activity.class);
+                startActivity(intent);
+            }
+        });
 
         ImageButton button1 = (ImageButton)findViewById(R.id.btn_home);
         button1.setOnClickListener(new View.OnClickListener() {

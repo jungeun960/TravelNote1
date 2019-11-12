@@ -1,5 +1,9 @@
 package com.example.travelnote1;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +24,12 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
 
     //어댑터에 들어갈 list
     private ArrayList<Share> arrayList;
+    Activity activity;
 
-    public ShareAdapter(ArrayList<Share> arrayList){
+    public ShareAdapter(Activity act, ArrayList<Share> arrayList){
         // 생성자에서 데이터 리스트 객체를 전달받음.
         this.arrayList = arrayList;
+        this.activity = act;
     }
     @NonNull
     @Override
@@ -57,8 +63,26 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
             //아이템 길게 클릭시
             @Override
             public boolean onLongClick(View v) {
-                remove(holder.getAdapterPosition()); // 제거
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle("삭제");
+                builder.setMessage("포스트를 삭제하시겠습니까?");
+                builder.setPositiveButton("예",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                remove(holder.getAdapterPosition()); // 제거
+                                //Toast.makeText(activity,"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                builder.setNegativeButton("아니오",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Toast.makeText(activity,"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                builder.show();
                 return true;
+
             }
         });
     }
