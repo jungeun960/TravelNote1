@@ -33,6 +33,18 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
 
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position) ;
+    }
+
+    // 리스너 객체 참조를 저장하는 변수
+    private OnItemClickListener mListener = null ;
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener ;
+    }
+
     @Override
     public TravelAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list2, parent, false);
@@ -47,7 +59,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
      * @param position
      */
     @Override
-    public void onBindViewHolder(@NonNull final TravelAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final TravelAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
         Glide.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
         holder.travel_name.setText(arrayList.get(position).getTravel_name()); // 내용 가져오기
@@ -60,7 +72,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
             public void onClick(View v) {
 //                String curName = holder.tv_name.getText().toString();
 //                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
-                //mListener.onItemClick(v, position) ;
+                mListener.onItemClick(v, position) ;
             }
         });
 

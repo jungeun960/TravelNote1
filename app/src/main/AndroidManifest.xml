@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.travelnote1">
+    <!-- internet permission required as images are loaded via Glide from an internet url -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- camera, gallery -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SharedResultActivity"></activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".SharedResultActivity" />
         <activity android:name=".Shared1Activity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SharedActivity" />
@@ -28,11 +34,5 @@
         </activity>
         <activity android:name=".MainActivity" />
     </application>
-    <!-- internet permission required as images are loaded via Glide from an internet url -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- camera, gallery -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

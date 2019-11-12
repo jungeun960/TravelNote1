@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -38,9 +39,26 @@ public class MainActivity extends AppCompatActivity {
         // 리사이클러뷰에 mainAdapter 객체 지정.
         travelAdapter = new TravelAdapter(this, arrayList);
         recyclerView.setAdapter(travelAdapter);
+        travelAdapter.setOnItemClickListener(new TravelAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Log.i("메인", "클릭"+position);
+                Travel travel = arrayList.get(position);
+                //Toast.makeText(getApplicationContext(),
+                //        share.getTv_name()+share.getTv_title()+share.getTv_cotent(), Toast.LENGTH_LONG).show();
+                // 인텐트 ResultActivity로 값 넘기기
+                Intent intent = new Intent(getBaseContext(),HomeActivity.class);
+                intent.putExtra("travel_title", travel.getTravel_name());
+                intent.putExtra( "travel_img", travel.getImageUrl());
+
+                startActivity(intent);
+            }
+        });
 
         Travel mainData1 = new Travel("content://com.android.providers.media.documents/document/image%3A198397", "유럽여행 28박 29일","2019.11.12");
+        Travel mainData2 = new Travel("content://com.android.providers.media.documents/document/image%3A198397", "대만여행 3박 4일","2018.01.12");
         arrayList.add(mainData1); // 내용 추가
+        arrayList.add(mainData2); // 내용 추가
         travelAdapter.notifyDataSetChanged();
 
         Intent intent = getIntent();
