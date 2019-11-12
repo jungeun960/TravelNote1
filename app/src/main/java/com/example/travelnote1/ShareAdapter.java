@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,19 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         this.arrayList = arrayList;
         this.activity = act;
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position) ;
+    }
+
+    // 리스너 객체 참조를 저장하는 변수
+    private OnItemClickListener mListener = null ;
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener ;
+    }
+
     @NonNull
     @Override
     public ShareAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,21 +55,22 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ShareAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ShareAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
 
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
         holder.tv_name.setText(arrayList.get(position).getTv_name()); // 이름 가져오기
         holder.tv_content.setText(arrayList.get(position).getTv_cotent()); // 내용 가져오기
-        holder.tv_title.setText(arrayList.get(position).getTv_cotent());
+        holder.tv_title.setText(arrayList.get(position).getTv_title());
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             // 아이템 클릭시
             @Override
             public void onClick(View v) {
-                String curName = holder.tv_name.getText().toString();
-                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
+//                String curName = holder.tv_name.getText().toString();
+//                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
+                mListener.onItemClick(v, position) ;
             }
         });
 
@@ -66,12 +81,12 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle("삭제");
-                builder.setMessage("포스트를 삭제하시겠습니까?");
+                builder.setMessage("글을 삭제하시겠습니까?");
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 remove(holder.getAdapterPosition()); // 제거
-                                //Toast.makeText(activity,"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+                                Toast.makeText(activity,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
                             }
                         });
                 builder.setNegativeButton("아니오",
