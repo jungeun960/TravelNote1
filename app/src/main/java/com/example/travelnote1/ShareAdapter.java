@@ -66,6 +66,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
             Edit.setOnMenuItemClickListener(onEditMenu);
             Delete.setOnMenuItemClickListener(onEditMenu);
         }
+
         // 4. 컨텍스트 메뉴에서 항목 클릭시 동작을 설정합니다.
         private final MenuItem.OnMenuItemClickListener onEditMenu = new MenuItem.OnMenuItemClickListener() {
 
@@ -93,7 +94,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                                 String strtitle = et_title.getText().toString();
                                 String strcontext = et_context.getText().toString();
 
-                                Share share = new Share(R.mipmap.ic_launcher,"홓홓",strtitle,strcontext);
+                                Share share = new Share(R.mipmap.ic_launcher,"홓홓",strcontext,strtitle);
 
                                 // 8. ListArray에 있는 데이터를 변경하고
                                 arrayList.set(getAdapterPosition(), share);
@@ -105,11 +106,29 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                         dialog.show();
                         break;
                     case 1002:  // 5. 삭제 항목을 선택시
-                        // 6. ArratList에서 해당 데이터를 삭제하고
-                        arrayList.remove(getAdapterPosition());
-                        // 7. 어댑터에서 RecyclerView에 반영하도록 합니다.
-                        notifyItemRemoved(getAdapterPosition());
-                        notifyItemRangeChanged(getAdapterPosition(), arrayList.size());
+
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(mContext);
+                        builder1.setTitle("삭제");
+                        builder1.setMessage("글을 삭제하시겠습니까?");
+                        builder1.setPositiveButton("예",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //remove(getAdapterPosition()); // 제거
+                                        arrayList.remove(getAdapterPosition());
+                                        // 7. 어댑터에서 RecyclerView에 반영하도록 합니다.
+                                        // 6. ArratList에서 해당 데이터를 삭제하고
+                                        notifyItemRemoved(getAdapterPosition());
+                                        notifyItemRangeChanged(getAdapterPosition(), arrayList.size());
+                                        Toast.makeText(mContext,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        builder1.setNegativeButton("아니오",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Toast.makeText(activity,"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                        builder1.show();
                         break;
                 }
                 return true;
@@ -117,11 +136,17 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         };
     }
 
-    public ShareAdapter(Activity act, ArrayList<Share> arrayList){
+    public ShareAdapter(Context context, ArrayList<Share> arrayList){
         // 생성자에서 데이터 리스트 객체를 전달받음.
         this.arrayList = arrayList;
-        this.activity = act;
+        this.mContext = context;
     }
+
+//    public ShareAdapter(Activity act, ArrayList<Share> arrayList){
+//        // 생성자에서 데이터 리스트 객체를 전달받음.
+//        this.arrayList = arrayList;
+//        this.activity = act;
+//    }
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position) ;

@@ -1,13 +1,17 @@
 package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -37,27 +41,9 @@ public class SharedActivity extends AppCompatActivity {
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
         arrayList = new ArrayList<>();
 
-        // 리사이클러뷰에 mainAdapter 객체 지정.
+        // 리사이클러뷰에 shareAdapter 객체 지정.
         shareAdapter = new ShareAdapter(this, arrayList);
         recyclerView.setAdapter(shareAdapter);
-
-        shareAdapter.setOnItemClickListener(new ShareAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                Log.i("메인", "클릭"+position);
-                Share share = arrayList.get(position);
-                //Toast.makeText(getApplicationContext(),
-                //        share.getTv_name()+share.getTv_title()+share.getTv_cotent(), Toast.LENGTH_LONG).show();
-                        // 인텐트 ResultActivity로 값 넘기기
-                Intent intent = new Intent(getBaseContext(),SharedResultActivity.class);
-                intent.putExtra("name", share.getTv_name());
-                intent.putExtra( "title", share.getTv_title());
-                intent.putExtra("content", share.getTv_cotent());
-                intent.putExtra("profile",share.getIv_profile());
-                startActivity(intent);
-
-            }
-        }) ;
 
         Share mainData1 = new Share(R.mipmap.ic_launcher, "최복치","마카롱 맛집 공유합니다.","파리 3박 4일");
         Share mainData2 = new Share(R.mipmap.ic_launcher, "절미","팬션 추천받습니다","강릉 여행");
@@ -66,6 +52,52 @@ public class SharedActivity extends AppCompatActivity {
         arrayList.add(mainData2);
         arrayList.add(mainData3);
         shareAdapter.notifyDataSetChanged();
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                linearLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
+            @Override
+            // 아이템 클릭 시
+            public void onClick(View view, int position) {
+                Log.i("메인", "클릭"+position);
+                Share share = arrayList.get(position);
+                //Toast.makeText(getApplicationContext(),
+                //        share.getTv_name()+share.getTv_title()+share.getTv_cotent(), Toast.LENGTH_LONG).show();
+                // 인텐트 ResultActivity로 값 넘기기
+                Intent intent = new Intent(getBaseContext(),SharedResultActivity.class);
+                intent.putExtra("name", share.getTv_name());
+                intent.putExtra( "title", share.getTv_title());
+                intent.putExtra("content", share.getTv_cotent());
+                intent.putExtra("profile",share.getIv_profile());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
+
+//        shareAdapter.setOnItemClickListener(new ShareAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int position) {
+//                Log.i("메인", "클릭"+position);
+//                Share share = arrayList.get(position);
+//                //Toast.makeText(getApplicationContext(),
+//                //        share.getTv_name()+share.getTv_title()+share.getTv_cotent(), Toast.LENGTH_LONG).show();
+//                        // 인텐트 ResultActivity로 값 넘기기
+//                Intent intent = new Intent(getBaseContext(),SharedResultActivity.class);
+//                intent.putExtra("name", share.getTv_name());
+//                intent.putExtra( "title", share.getTv_title());
+//                intent.putExtra("content", share.getTv_cotent());
+//                intent.putExtra("profile",share.getIv_profile());
+//                startActivity(intent);
+//
+//            }
+//        }) ;
+
+
 
 //        Button btn_add = (Button)findViewById(R.id.button2);
 //        btn_add.setOnClickListener(new View.OnClickListener() {// 추가 버튼 클릭 시
@@ -142,6 +174,53 @@ public class SharedActivity extends AppCompatActivity {
 
 
             }
+        }
+    }
+
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        private SharedActivity.ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final SharedActivity.ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
         }
     }
 
