@@ -32,19 +32,28 @@
             android:hint="비밀번호"
             android:inputType="textPassword" />
 
-        <Button
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="로그인" />
+            android:layout_margin="30dp"
+            android:text="로그인"
+            app:bootstrapBrand="primary"
+            app:buttonMode="regular"
+            app:showOutline="true"
+            app:roundedCorners="true"/>
 
-        <Button
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:text="계정만들기" />
+            android:text="계정만들기"
+            app:bootstrapBrand="primary"
+            app:buttonMode="regular"
+            app:showOutline="true"
+            app:roundedCorners="true"/>
+
 
     </LinearLayout>
 

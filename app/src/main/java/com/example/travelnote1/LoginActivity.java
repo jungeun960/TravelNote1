@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -14,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button button = (Button)findViewById(R.id.btn_login);
+        BootstrapButton button = (BootstrapButton)findViewById(R.id.btn_login);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -23,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button button1 = (Button)findViewById(R.id.btn_signup);
+        BootstrapButton button1 = (BootstrapButton)findViewById(R.id.btn_signup);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
