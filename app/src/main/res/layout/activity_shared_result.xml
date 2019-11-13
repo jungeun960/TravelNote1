@@ -73,16 +73,24 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/ic_favorite_black_24dp"
+                    android:layout_gravity="center_vertical"
                     tools:ignore="VectorDrawableCompat" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical"
                     android:text="1" />
+
+<!--                <Button-->
+<!--                    android:id="@+id/button3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="수정하기" />-->
 
             </LinearLayout>
 

@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
         title.setText(travel_title);
         //Glide.with(this).load(travel_img).into(img);
-        Glide.with(this).load("content://com.android.providers.media.documents/document/image%3A179738").into(img);
+        Glide.with(this).load(R.drawable.me).into(img);
         //Glide를 이용하여 이미지뷰에 url에 있는 이미지를 세팅해줌
 
 

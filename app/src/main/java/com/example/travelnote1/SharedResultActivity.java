@@ -2,7 +2,12 @@ package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.SharedMemory;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +22,7 @@ public class SharedResultActivity extends AppCompatActivity {
         String title = "";
         String content = "";
         int profile = 0;
+        int post_position = 0;
 
         Bundle extras = getIntent().getExtras();
 
@@ -24,6 +30,7 @@ public class SharedResultActivity extends AppCompatActivity {
         title = extras.getString("title");
         content = extras.getString("content");
         profile = extras.getInt("profile");
+        post_position = extras.getInt("position");
 
         TextView vname = (TextView) findViewById(R.id.re_name);
         TextView vtitle = (TextView) findViewById(R.id.re_title);
@@ -34,5 +41,6 @@ public class SharedResultActivity extends AppCompatActivity {
         vtitle.setText(title);
         vcontent.setText(content);
         vprofile.setImageResource(profile);
+
     }
 }
