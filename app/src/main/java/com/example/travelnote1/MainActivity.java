@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 Travel travel = arrayList.get(position);
                 //Toast.makeText(getApplicationContext(),
                 //        share.getTv_name()+share.getTv_title()+share.getTv_cotent(), Toast.LENGTH_LONG).show();
-                // 인텐트 ResultActivity로 값 넘기기
                 Intent intent = new Intent(getBaseContext(),HomeActivity.class);
                 intent.putExtra("travel_title", travel.getTravel_name());
                 intent.putExtra( "travel_img", travel.getImageUrl());
@@ -69,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Travel mainData = new Travel(imageUri, title,date);
         arrayList.add(mainData); // 내용 추가
         travelAdapter.notifyDataSetChanged();
+        //travelAdapter.notifyItemInserted(0);
 
 
         ImageButton button1 = (ImageButton)findViewById(R.id.btn_home);

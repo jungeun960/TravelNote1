@@ -3,10 +3,12 @@ package com.example.travelnote1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -71,6 +73,22 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
+    private String getRealPathFromURI(Uri contentURI){
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null,null);
+        if(cursor == null){
+            result = contentURI.getPath();
+        }
+        else{
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return  result;
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -79,6 +97,8 @@ public class AddActivity extends AppCompatActivity {
                 try {
                     InputStream in = getContentResolver().openInputStream(data.getData());
                     photoUri = data.getData();
+                    Log.e("갤러리 진입","경로 : "+photoUri);
+
                     img = BitmapFactory.decodeStream(in);
                     in.close();
                     travel_image.setImageBitmap(img);
