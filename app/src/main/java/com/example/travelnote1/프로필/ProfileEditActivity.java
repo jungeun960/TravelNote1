@@ -1,4 +1,4 @@
-package com.example.travelnote1;
+package com.example.travelnote1.프로필;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.example.travelnote1.R;
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
@@ -20,7 +24,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 0;
     private ImageView imageView;
-    private EditText et_name;
+    private BootstrapEditText et_name;
     private Bitmap img;
 
     @Override
@@ -30,7 +34,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.image);
 
-        Button btn_save = (Button)findViewById(R.id.btn_save);
+        BootstrapButton btn_save = (BootstrapButton)findViewById(R.id.btn_save);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override

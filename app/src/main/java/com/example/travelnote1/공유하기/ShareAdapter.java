@@ -1,11 +1,9 @@
-package com.example.travelnote1;
+package com.example.travelnote1.공유하기;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,8 +19,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travelnote1.R;
+
 import java.util.ArrayList;
-import java.util.Dictionary;
 
 public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHolder> {
     // 어뎁터 구현 시 필수 생성 메서드

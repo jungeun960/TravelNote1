@@ -1,4 +1,4 @@
-package com.example.travelnote1;
+package com.example.travelnote1.프로필;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,16 +7,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
+import com.example.travelnote1.폴더추가하기.AddActivity;
+import com.example.travelnote1.폴더추가하기.MainActivity;
+import com.example.travelnote1.R;
+import com.example.travelnote1.공유하기.SharedActivity;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -57,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent1);
             }
         });
@@ -65,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(getApplicationContext(),SharedActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), SharedActivity.class);
                 startActivity(intent2);
             }
         });
@@ -73,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(getApplicationContext(),AddActivity.class);
+                Intent intent3 = new Intent(getApplicationContext(), AddActivity.class);
                 startActivity(intent3);
             }
         });
@@ -92,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity {
         button_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ProfileEditActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
                 startActivityForResult(intent,1);
             }
         });

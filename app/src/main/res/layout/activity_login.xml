@@ -5,30 +5,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="70dp"
+        android:layout_margin="40dp"
+        android:background="#ffffff"
         >
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:ems="10"
-            android:hint="사용자 ID"
-            android:inputType="textEmailAddress" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="336dp"
+            android:layout_height="79dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/note"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="60dp"/>
 
-        <EditText
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        app:bootstrapBrand="info"
+        android:hint="사용자 ID"
+        android:inputType="textEmailAddress" />
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/editText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
             android:ems="10"
+            app:bootstrapBrand="info"
             android:hint="비밀번호"
             android:inputType="textPassword" />
 
@@ -36,7 +54,9 @@
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:text="로그인"
             app:bootstrapBrand="primary"
             app:buttonMode="regular"
@@ -47,7 +67,9 @@
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
             android:text="계정만들기"
             app:bootstrapBrand="primary"
             app:buttonMode="regular"

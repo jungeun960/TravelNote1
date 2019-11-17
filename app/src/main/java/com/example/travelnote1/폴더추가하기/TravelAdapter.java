@@ -1,8 +1,7 @@
-package com.example.travelnote1;
+package com.example.travelnote1.폴더추가하기;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.travelnote1.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.concurrent.TransferQueue;
 
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomViewHolder> {
 
@@ -61,7 +61,8 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
     @Override
     public void onBindViewHolder(@NonNull final TravelAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
-        Glide.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
+        Picasso.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
+        //Glide.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
         holder.travel_name.setText(arrayList.get(position).getTravel_name()); // 내용 가져오기
         holder.travel_date.setText(arrayList.get(position).getTravel_date());
 

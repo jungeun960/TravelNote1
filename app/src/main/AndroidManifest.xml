@@ -9,22 +9,21 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/img"
         android:label="TravelNote"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SignupActivity"></activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SharedmodifyActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".SharedResultActivity" />
-        <activity android:name=".Shared1Activity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".SharedActivity" />
-        <activity android:name=".ProfileEditActivity" />
-        <activity android:name=".AddActivity" />
-        <activity android:name=".Add1Activity" />
+        <activity android:name=".공유하기.SharedmodifyActivity" />
+        <activity android:name=".폴더추가하기.HomeActivity" />
+        <activity android:name=".공유하기.SharedResultActivity" />
+        <activity android:name=".공유하기.Shared1Activity" />
+        <activity android:name=".프로필.ProfileActivity" />
+        <activity android:name=".공유하기.SharedActivity" />
+        <activity android:name=".프로필.ProfileEditActivity" />
+        <activity android:name=".폴더추가하기.AddActivity" />
         <activity
             android:name=".Splash"
             android:screenOrientation="portrait"
@@ -35,7 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".폴더추가하기.MainActivity" />
     </application>
 
 </manifest>

@@ -1,22 +1,16 @@
-package com.example.travelnote1;
+package com.example.travelnote1.폴더추가하기;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
+import com.example.travelnote1.R;
+import com.squareup.picasso.Picasso;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,7 +29,8 @@ public class HomeActivity extends AppCompatActivity {
 
         title.setText(travel_title);
         //Glide.with(this).load(travel_img).into(img);
-        Glide.with(this).load(R.drawable.me).into(img);
+        Picasso.with(this).load(travel_img).into(img);
+        //Glide.with(this).load(R.drawable.me).into(img);
         //Glide를 이용하여 이미지뷰에 url에 있는 이미지를 세팅해줌
 
 

@@ -1,4 +1,4 @@
-package com.example.travelnote1;
+package com.example.travelnote1.공유하기;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.travelnote1.R;
 
 public class SharedResultActivity extends AppCompatActivity {
 

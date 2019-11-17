@@ -1,4 +1,4 @@
-package com.example.travelnote1;
+package com.example.travelnote1.폴더추가하기;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,9 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.travelnote1.R;
 
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -51,7 +52,7 @@ public class AddActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                 // 작성일 구하기
                 SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");

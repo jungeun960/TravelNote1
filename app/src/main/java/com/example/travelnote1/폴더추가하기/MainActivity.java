@@ -1,4 +1,4 @@
-package com.example.travelnote1;
+package com.example.travelnote1.폴더추가하기;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import com.example.travelnote1.R;
+import com.example.travelnote1.공유하기.SharedActivity;
+import com.example.travelnote1.프로필.ProfileActivity;
 
 import java.util.ArrayList;
 
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 Travel travel = arrayList.get(position);
                 //Toast.makeText(getApplicationContext(),
                 //        share.getTv_name()+share.getTv_title()+share.getTv_cotent(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getBaseContext(),HomeActivity.class);
+                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                 intent.putExtra("travel_title", travel.getTravel_name());
                 intent.putExtra( "travel_img", travel.getImageUrl());
 
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(getApplicationContext(),SharedActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), SharedActivity.class);
                 startActivity(intent2);
             }
         });
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(getApplicationContext(),AddActivity.class);
+                Intent intent3 = new Intent(getApplicationContext(), AddActivity.class);
                 startActivity(intent3);
             }
         });
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent4 = new Intent(getApplicationContext(),ProfileActivity.class);
+                Intent intent4 = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent4);
             }
         });

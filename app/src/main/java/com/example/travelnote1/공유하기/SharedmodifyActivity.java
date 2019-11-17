@@ -1,8 +1,10 @@
-package com.example.travelnote1;
+package com.example.travelnote1.공유하기;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.travelnote1.R;
 
 public class SharedmodifyActivity extends AppCompatActivity {
 

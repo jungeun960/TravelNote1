@@ -7,6 +7,10 @@
         <item name="colorPrimary">#5A5AAB</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- No Title Bar-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
     </style>
 
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">

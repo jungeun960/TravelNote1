@@ -1,4 +1,4 @@
-package com.example.travelnote1;
+package com.example.travelnote1.공유하기;
 
 public class Share {
     private int iv_profile; //imageView int 임

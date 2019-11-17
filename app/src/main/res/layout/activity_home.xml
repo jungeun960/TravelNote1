@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".폴더추가하기.HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +50,6 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:id="@+id/button2"
             android:text="일기쓰기"/>
 
