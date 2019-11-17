@@ -32,5 +32,6 @@ dependencies {
     //ted permission
     implementation "gun0912.ted:tedpermission:2.1.0"
     implementation "com.squareup.picasso:picasso:2.5.2"
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }

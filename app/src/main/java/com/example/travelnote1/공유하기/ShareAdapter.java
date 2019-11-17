@@ -34,6 +34,11 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
     Activity activity;
     private Context mContext;
 
+    public void filterList(ArrayList<Share> filteredList) {
+        arrayList = filteredList;
+        notifyDataSetChanged();
+    }
+
     // 1. 컨텍스트 메뉴를 사용하라면 RecyclerView.ViewHolder를 상속받은 클래스에서
     // OnCreateContextMenuListener 리스너를 구현해야 합니다.
     public class CustomViewHolder extends RecyclerView.ViewHolder
