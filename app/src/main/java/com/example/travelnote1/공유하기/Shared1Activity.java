@@ -8,19 +8,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.travelnote1.R;
 
 public class Shared1Activity extends AppCompatActivity {
 
-    private EditText et_title;
-    private EditText et_context;
+    private BootstrapEditText et_title;
+    private BootstrapEditText et_context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shared1);
 
-        Button btn_register = (Button)findViewById(R.id.btn_register);
+        BootstrapButton btn_register = (BootstrapButton)findViewById(R.id.btn_register);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

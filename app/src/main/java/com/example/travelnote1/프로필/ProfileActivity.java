@@ -60,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                intent1.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent1);
             }
         });
@@ -68,6 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2 = new Intent(getApplicationContext(), SharedActivity.class);
+                intent2.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent2);
             }
         });
@@ -84,6 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent4 = new Intent(getApplicationContext(),ProfileActivity.class);
+                intent4.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent4);
             }
         });

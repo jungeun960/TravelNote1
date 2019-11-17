@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.travelnote1.R;
 
 import java.io.InputStream;
@@ -25,7 +27,7 @@ import java.util.Date;
 public class AddActivity extends AppCompatActivity {
 
     private ImageView travel_image;
-    private EditText travel_title;
+    private BootstrapEditText travel_title;
     private static final int REQUEST_CODE = 0;
     private Bitmap img;
     private Uri photoUri;
@@ -37,7 +39,7 @@ public class AddActivity extends AppCompatActivity {
 
         travel_image = findViewById(R.id.travel_image);
         travel_title = findViewById(R.id.travel_title);
-        Button button = (Button)findViewById(R.id.btn_travel);
+        BootstrapButton button = (BootstrapButton)findViewById(R.id.btn_travel);
 
         travel_image.setOnClickListener(new View.OnClickListener(){
             @Override
