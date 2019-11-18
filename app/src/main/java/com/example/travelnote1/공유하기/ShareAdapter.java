@@ -34,6 +34,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
     Activity activity;
     private Context mContext;
 
+    // 검색 필터
     public void filterList(ArrayList<Share> filteredList) {
         arrayList = filteredList;
         notifyDataSetChanged();
@@ -145,12 +146,6 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         this.arrayList = arrayList;
         this.mContext = context;
     }
-
-//    public ShareAdapter(Activity act, ArrayList<Share> arrayList){
-//        // 생성자에서 데이터 리스트 객체를 전달받음.
-//        this.arrayList = arrayList;
-//        this.activity = act;
-//    }
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position) ;
