@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelnote1.R;
 
+import java.text.Format;
 import java.util.ArrayList;
 
-public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHolder> {
+public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHolder>
+    implements Filterable {
     // 어뎁터 구현 시 필수 생성 메서드
     //onCreateViewHolder() : 뷰홀더 객체 생성.
     //onBindViewHolder() : 데이터를 뷰홀더에 바인딩.
@@ -31,13 +35,44 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
 
     //어댑터에 들어갈 list
     private ArrayList<Share> arrayList;
+    ArrayList<Share> filteredList;
     Activity activity;
     private Context mContext;
 
-    // 검색 필터
-    public void filterList(ArrayList<Share> filteredList) {
-        arrayList = filteredList;
-        notifyDataSetChanged();
+
+//    public void filterList(ArrayList<Share> filteredList) {
+//        arrayList = filteredList;
+//        notifyDataSetChanged();
+//    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charString = constraint.toString();
+                if(charString.isEmpty()) {
+                    arrayList = filteredList;
+                } else {
+                    ArrayList<Share> filteringList = new ArrayList<>();
+                    for(Share item : filteredList) {
+                        if(item.getTv_cotent().toLowerCase().contains(charString.toLowerCase())) {
+                            filteringList.add(item);
+                        }
+                    }
+                    arrayList = filteringList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = arrayList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                arrayList = (ArrayList<Share>)results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     // 1. 컨텍스트 메뉴를 사용하라면 RecyclerView.ViewHolder를 상속받은 클래스에서
@@ -145,7 +180,14 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         // 생성자에서 데이터 리스트 객체를 전달받음.
         this.arrayList = arrayList;
         this.mContext = context;
+        this.filteredList = arrayList;
     }
+
+//    public ShareAdapter(Activity act, ArrayList<Share> arrayList){
+//        // 생성자에서 데이터 리스트 객체를 전달받음.
+//        this.arrayList = arrayList;
+//        this.activity = act;
+//    }
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position) ;
