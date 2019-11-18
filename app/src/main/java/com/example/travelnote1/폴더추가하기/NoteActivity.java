@@ -71,7 +71,7 @@ public class NoteActivity extends AppCompatActivity {
                     intent.putExtra("title",title);
                     intent.putExtra("location",location);
                     intent.putExtra("note",note);
-                    intent.putExtra("imageUri",imageUri.toString());
+                    intent.putExtra("image",imageUri.toString());
 
                     setResult(RESULT_OK,intent); // 추가 정보를 넣은 후 다시 인텐트를 반환합니다.
                     finish(); // 액티비티 종료

@@ -95,9 +95,9 @@ public class HomeActivity extends AppCompatActivity {
                 String b = data.getStringExtra("title");
                 String c = data.getStringExtra("location");
                 String d = data.getStringExtra("note");
-                String e = data.getStringExtra("imageUri");
+                String e = data.getStringExtra("image");
 
-                Log.e("LOG", "결과 제목 a :"+a +"내용 b : "+b );
+                Log.e("LOG", "결과 제목 a :"+a +"내용 b : "+b +e );
 
                 Note mainData = new Note(a,b,c,e,d);
                 arrayList.add(mainData); // 내용 추가

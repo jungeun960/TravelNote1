@@ -70,15 +70,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.CustomViewHold
         holder.tv_location.setText(arrayList.get(position).getTv_location());
         holder.tv_note.setText(arrayList.get(position).getTv_note());
         holder.itemView.setTag(position);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            // 아이템 클릭시
-//            @Override
-//            public void onClick(View v) {
-////                String curName = holder.tv_name.getText().toString();
-////                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
-//                mListener.onItemClick(v, position) ;
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            // 아이템 클릭시
+            @Override
+            public void onClick(View v) {
+//                String curName = holder.tv_name.getText().toString();
+//                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
+                mListener.onItemClick(v, position) ;
+            }
+        });
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             //아이템 길게 클릭시
