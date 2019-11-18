@@ -4,27 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".폴더추가하기.HomeActivity">
+    tools:context=".폴더추가하기.HomeActivity"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             >
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
-                android:layout_height="122dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/me" />
+
 
             <TextView
                 android:id="@+id/title"
@@ -36,9 +39,14 @@
                 android:text="TextView" />
         </LinearLayout>
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:src="#5A5AAB"/>
+
         <!--recyclerview 가 표시될 위치 결정-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+            android:id="@+id/recycle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"
@@ -47,10 +55,19 @@
             android:scrollbarThumbVertical="@android:color/darker_gray"
             android:scrollbars="vertical" />
 
-        <Button
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button2"
+            app:bootstrapBrand="primary"
+            app:buttonMode="regular"
+            app:roundedCorners="true"
+            app:showOutline="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="일기쓰기"/>
 
     </LinearLayout>
