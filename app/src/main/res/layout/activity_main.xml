@@ -30,56 +30,66 @@
         >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:src="#5A5AAB" />
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:src="#5A5AAB" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="26dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/btn_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_home_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
+        <ImageButton
+            android:id="@+id/btn_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_home_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
 
-            <ImageButton
-                android:id="@+id/btn_shared"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_forum_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
+        <ImageButton
+            android:id="@+id/btn_shared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_forum_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
 
-            <ImageButton
-                android:id="@+id/btn_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_add_circle_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
+        <ImageButton
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_add_circle_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
 
-            <ImageButton
-                android:id="@+id/btn_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_person_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
+        <ImageButton
+            android:id="@+id/btn_youtube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_subscriptions_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
 
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/btn_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_person_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
 
     </LinearLayout>
+
+</LinearLayout>
 
 
 </LinearLayout>

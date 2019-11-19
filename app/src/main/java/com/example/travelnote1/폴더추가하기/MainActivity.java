@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.travelnote1.R;
+import com.example.travelnote1.유튜브.YoutubeActivity;
 import com.example.travelnote1.공유하기.SharedActivity;
 import com.example.travelnote1.프로필.ProfileActivity;
 
@@ -109,6 +110,16 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent4 = new Intent(getApplicationContext(), ProfileActivity.class);
                 intent4.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent4);
+            }
+        });
+
+        ImageButton button5 = (ImageButton)findViewById(R.id.btn_youtube);
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent5 = new Intent(getApplicationContext(), YoutubeActivity.class);
+                intent5.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent5);
             }
         });
     }

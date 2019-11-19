@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
+import com.example.travelnote1.유튜브.YoutubeActivity;
 import com.example.travelnote1.폴더추가하기.AddActivity;
 import com.example.travelnote1.폴더추가하기.MainActivity;
 import com.example.travelnote1.R;
@@ -88,6 +89,16 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent intent4 = new Intent(getApplicationContext(),ProfileActivity.class);
                 intent4.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent4);
+            }
+        });
+
+        ImageButton button5 = (ImageButton)findViewById(R.id.btn_youtube);
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent5 = new Intent(getApplicationContext(), YoutubeActivity.class);
+                intent5.addFlags (Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent5);
             }
         });
 

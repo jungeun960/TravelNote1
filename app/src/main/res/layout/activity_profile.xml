@@ -170,6 +170,15 @@
                 tools:ignore="VectorDrawableCompat" />
 
             <ImageButton
+                android:id="@+id/btn_youtube"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_subscriptions_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
+
+            <ImageButton
                 android:id="@+id/btn_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
