@@ -57,7 +57,7 @@ public class AddActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
                 // 작성일 구하기
-                SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat format1 = new SimpleDateFormat ( "MM/dd HH:mm");
                 Date time = new Date();
                 String time1 = format1.format(time);
 

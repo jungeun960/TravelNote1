@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.travelnote1.R;
 import com.example.travelnote1.공유하기.Share;
 import com.squareup.picasso.Picasso;
@@ -63,7 +64,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.CustomViewHold
     public void onBindViewHolder(@NonNull final NoteAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
         Picasso.with(activity).load(arrayList.get(position).getImageView6()).into(holder.imageView6);
-        //Glide.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
+        //Glide.with(activity).load(arrayList.get(position).getImageView6()).into(holder.imageView6);
         //Glide.with(this).load(R.drawable.me).into(img);
         holder.tv_day.setText(arrayList.get(position).getTv_day());
         holder.tv_title.setText(arrayList.get(position).getTv_title());

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".공유하기.SharedResultActivity">
+    tools:context=".공유하기.SharedResultActivity"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="홓홓홓"
-                    android:textSize="15dp" />
+                    android:textSize="10dp" />
             </LinearLayout>
 
             <TextView
@@ -47,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:text="파리 3박 4일"
                 android:textSize="17dp"
                 android:textStyle="bold" />
@@ -57,9 +58,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:text="리사이클러뷰"
-                android:textSize="17dp" />
+                android:textSize="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,8 +70,8 @@
 
                 <ImageButton
                     android:id="@+id/imageButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/ic_favorite_black_24dp"
                     android:layout_gravity="center_vertical"
@@ -82,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:layout_marginLeft="5dp"
+                    android:textSize="10dp"
                     android:layout_gravity="center_vertical"
                     android:text="1" />
 
@@ -100,9 +102,75 @@
 
 
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:src="#5A5AAB"/>
+        android:layout_marginBottom="10dp"
+        android:background="#dcdcdc" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="8"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#dcdcdc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:hasBorder="false"
+            android:src="@drawable/me"
+            app:bootstrapBrand="primary"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            />
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView8"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginLeft="5dp"-->
+<!--            app:srcCompat="@drawable/ic_person_black_24dp"-->
+<!--            tools:ignore="VectorDrawableCompat"-->
+<!--            android:layout_gravity="center"/>-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add a comment"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/add_commnet"
+            android:layout_weight="4"
+            android:textSize="10dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/post"
+            android:text="POST"
+            android:textSize="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            />
+
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,73 +24,34 @@ import com.example.travelnote1.R;
 
 import java.util.ArrayList;
 
-public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHolder>
-    implements Filterable {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomViewHolder> {
     // 어뎁터 구현 시 필수 생성 메서드
     //onCreateViewHolder() : 뷰홀더 객체 생성.
     //onBindViewHolder() : 데이터를 뷰홀더에 바인딩.
     //getItemCount() : 전체 아이템 갯수 리턴.
 
     //어댑터에 들어갈 list
-    private ArrayList<Share> arrayList;
-    ArrayList<Share> filteredList;
+    private ArrayList<Comment> arrayList;
     Activity activity;
     private Context mContext;
 
 
-//    public void filterList(ArrayList<Share> filteredList) {
-//        arrayList = filteredList;
-//        notifyDataSetChanged();
-//    }
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                String charString = constraint.toString();
-                if(charString.isEmpty()) {
-                    arrayList = filteredList;
-                } else {
-                    ArrayList<Share> filteringList = new ArrayList<>();
-                    for(Share item : filteredList) {
-                        if(item.getTv_cotent().toLowerCase().contains(charString.toLowerCase())) {
-                            filteringList.add(item);
-                        }
-                    }
-                    arrayList = filteringList;
-                }
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = arrayList;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                arrayList = (ArrayList<Share>)results.values;
-                notifyDataSetChanged();
-            }
-        };
-    }
-
     // 1. 컨텍스트 메뉴를 사용하라면 RecyclerView.ViewHolder를 상속받은 클래스에서
     // OnCreateContextMenuListener 리스너를 구현해야 합니다.
     public class CustomViewHolder extends RecyclerView.ViewHolder
-                implements View.OnCreateContextMenuListener {
+            implements View.OnCreateContextMenuListener {
         // 아이템 뷰를 저장하는 뷰홀더 클래스.
 
         protected ImageView iv_profile;
         protected TextView tv_name;
-        protected TextView tv_content;
-        protected TextView tv_title;
+        protected TextView tv_comment;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             // 뷰 객체에 대한 참조. (hold strong reference)
             this.iv_profile=(ImageView)itemView.findViewById(R.id.iv_profile);
             this.tv_name=(TextView)itemView.findViewById(R.id.tv_name);
-            this.tv_content=(TextView)itemView.findViewById(R.id.tv_content);
-            this.tv_title=(TextView)itemView.findViewById(R.id.tv_title);
+            this.tv_comment=(TextView)itemView.findViewById(R.id.tv_comment);
             itemView.setOnCreateContextMenuListener(this);
             //2. OnCreateContextMenuListener 리스너를 현재 클래스에서 구현한다고 설정해둡니다.
         }
@@ -123,8 +83,8 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                         final EditText et_context = (EditText) view.findViewById(R.id.et_context);
 
                         // 6. 해당 줄에 입력되어 있던 데이터를 불러와서 다이얼로그에 보여줍니다.
-                        et_title.setText(arrayList.get(getAdapterPosition()).getTv_title());
-                        et_context.setText(arrayList.get(getAdapterPosition()).getTv_cotent());
+                        et_title.setText(arrayList.get(getAdapterPosition()).getTv_name());
+                        et_context.setText(arrayList.get(getAdapterPosition()).getTv_comment());
 
                         final AlertDialog dialog = builder.create();
                         btn_modify.setOnClickListener(new View.OnClickListener() {
@@ -133,10 +93,10 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                                 String strtitle = et_title.getText().toString();
                                 String strcontext = et_context.getText().toString();
 
-                                Share share = new Share(R.mipmap.ic_launcher,"홓홓",strcontext,strtitle);
+                                Comment comment = new Comment(R.mipmap.ic_launcher,"dd","dd");
 
                                 // 8. ListArray에 있는 데이터를 변경하고
-                                arrayList.set(getAdapterPosition(), share);
+                                arrayList.set(getAdapterPosition(), comment);
                                 // 9. 어댑터에서 RecyclerView에 반영하도록 합니다.
                                 notifyItemChanged(getAdapterPosition());
                                 dialog.dismiss();
@@ -175,86 +135,30 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         };
     }
 
-    public ShareAdapter(Context context, ArrayList<Share> arrayList){
+    public CommentAdapter(Context context, ArrayList<Comment> arrayList){
         // 생성자에서 데이터 리스트 객체를 전달받음.
         this.arrayList = arrayList;
         this.mContext = context;
-        this.filteredList = arrayList;
-    }
-
-//    public ShareAdapter(Activity act, ArrayList<Share> arrayList){
-//        // 생성자에서 데이터 리스트 객체를 전달받음.
-//        this.arrayList = arrayList;
-//        this.activity = act;
-//    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View v, int position) ;
-    }
-
-    // 리스너 객체 참조를 저장하는 변수
-    private OnItemClickListener mListener = null ;
-
-    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mListener = listener ;
     }
 
     @NonNull
     @Override
-    public ShareAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommentAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // viewType 형태의 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.commentitem,parent, false);
         CustomViewHolder holder = new CustomViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ShareAdapter.CustomViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final CommentAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
 
         holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
         holder.tv_name.setText(arrayList.get(position).getTv_name()); // 이름 가져오기
-        holder.tv_content.setText(arrayList.get(position).getTv_cotent()); // 내용 가져오기
-        holder.tv_title.setText(arrayList.get(position).getTv_title());
-
+        holder.tv_comment.setText(arrayList.get(position).getTv_comment()); // 내용 가져오기
         holder.itemView.setTag(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            // 아이템 클릭시
-            @Override
-            public void onClick(View v) {
-//                String curName = holder.tv_name.getText().toString();
-//                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
-                mListener.onItemClick(v, position) ;
-            }
-        });
 
-//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//            //아이템 길게 클릭시
-//            @Override
-//            public boolean onLongClick(View v) {
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-//                builder.setTitle("삭제");
-//                builder.setMessage("글을 삭제하시겠습니까?");
-//                builder.setPositiveButton("예",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                remove(holder.getAdapterPosition()); // 제거
-//                                Toast.makeText(activity,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                builder.setNegativeButton("아니오",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                //Toast.makeText(activity,"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
-//                            }
-//                        });
-//                builder.show();
-//                return true;
-//
-//            }
-//        });
     }
 
     @Override
@@ -262,16 +166,5 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         // 전체 아이템 갯수 리턴.
         return (null != arrayList ? arrayList.size() : 0);
     }
-
-//    public void remove(int position){
-//        // 삭제
-//        try{
-//            arrayList.remove(position); // arrayList에서 제거
-//            notifyItemRemoved(position);// 새로고침해 지워줌
-//        }catch (IndexOutOfBoundsException ex){
-//            ex.printStackTrace();
-//        }
-//    }
-
 
 }
