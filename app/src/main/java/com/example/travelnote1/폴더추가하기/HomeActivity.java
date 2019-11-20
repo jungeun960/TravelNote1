@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,19 +43,21 @@ public class HomeActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
         arrayList = new ArrayList<>();
 
         noteAdapter = new NoteAdapter(this, arrayList);
         recyclerView.setAdapter(noteAdapter);
 
-        Note mainData = new Note("DAY-1 2019.01.10","스위스 페러글라이딩", "스위스 인터라켄",
-                "content://com.android.providers.media.documents/document/image%3A210692","페러글라이딩 존잼이다ㅠ");
-        Note mainData1 = new Note("DAY-2 2019.01.11","비온다ㅠㅠ", "루체른",
-                "content://com.android.providers.media.documents/document/image%3A210693","비와서 숙소에만 있는다ㅠㅠ 근데 숙소가 넘 이뿜..");
-        arrayList.add(mainData); // 내용 추가
-        arrayList.add(mainData1);
-        noteAdapter.notifyDataSetChanged();
+//        Note mainData = new Note("DAY-1 2019.01.10","스위스 페러글라이딩", "스위스 인터라켄",
+//                "content://com.android.providers.media.documents/document/image%3A210692","페러글라이딩 존잼이다ㅠ");
+//        Note mainData1 = new Note("DAY-2 2019.01.11","비온다ㅠㅠ", "루체른",
+//                "content://com.android.providers.media.documents/document/image%3A210693","비와서 숙소에만 있는다ㅠㅠ 근데 숙소가 넘 이뿜..");
+//        arrayList.add(mainData); // 내용 추가
+//        arrayList.add(mainData1);
+//        noteAdapter.notifyDataSetChanged();
         //Glide.with(this).load(R.drawable.me).into(img);
 
 
@@ -85,6 +89,18 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -97,7 +113,7 @@ public class HomeActivity extends AppCompatActivity {
                 String d = data.getStringExtra("note");
                 String e = data.getStringExtra("image");
 
-                Log.e("LOG", "결과 제목 a :"+a +"내용 b : "+b +e );
+                Log.e("LOG", "날짜 :"+a +"제목: "+ b + "위치: " + c + "내용: "+d +"이미지 uri: "+e );
 
                 Note mainData = new Note(a,b,c,e,d);
                 arrayList.add(mainData); // 내용 추가

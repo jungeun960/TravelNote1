@@ -73,11 +73,13 @@ public class SharedResultActivity extends AppCompatActivity {
         commentAdapter = new CommentAdapter(this, arrayList);
         recyclerView.setAdapter(commentAdapter);
 
-        Comment mainData1 = new Comment(R.mipmap.ic_launcher, "최복치","화이트 에펠 강추합니다!");
-        Comment mainData2 = new Comment(R.mipmap.ic_launcher, "절미","1일1에펠 하세요");
-        arrayList.add(mainData1); // 내용 추가
-        arrayList.add(mainData2);
-        commentAdapter.notifyDataSetChanged();
+//        Comment mainData1 = new Comment(R.mipmap.ic_launcher, "최복치","화이트 에펠 강추합니다!");
+//        Comment mainData2 = new Comment(R.mipmap.ic_launcher, "절미","1일1에펠 하세요");
+//        arrayList.add(mainData1); // 내용 추가
+//        arrayList.add(mainData2);
+//        commentAdapter.notifyDataSetChanged();
+
+
 
         // 댓글 작성
         post = (Button)findViewById(R.id.post);

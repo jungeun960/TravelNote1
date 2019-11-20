@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.travelnote1.R;
 import com.example.travelnote1.유튜브.YoutubeActivity;
@@ -35,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
         arrayList = new ArrayList<>();
 
@@ -57,11 +59,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Travel mainData1 = new Travel("content://com.android.providers.media.documents/document/image%3A210690", "유럽여행 28박 29일","2019.11.12");
-        Travel mainData2 = new Travel("content://com.android.providers.media.documents/document/image%3A210691", "대만여행 3박 4일","2018.01.12");
-        arrayList.add(mainData1); // 내용 추가
-        arrayList.add(mainData2); // 내용 추가
-        travelAdapter.notifyDataSetChanged();
+
+//        Travel mainData1 = new Travel("content://com.android.providers.media.documents/document/image%3A210690", "유럽여행 28박 29일","2019.11.12");
+//        Travel mainData2 = new Travel("content://com.android.providers.media.documents/document/image%3A210691", "대만여행 3박 4일","2018.01.12");
+//        arrayList.add(mainData1); // 내용 추가
+//        arrayList.add(mainData2); // 내용 추가
+//        travelAdapter.notifyDataSetChanged();
 
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
@@ -73,6 +76,21 @@ public class MainActivity extends AppCompatActivity {
         travelAdapter.notifyDataSetChanged();
         //travelAdapter.notifyItemInserted(0);
 
+//        emptyData = (ImageView) findViewById(R.id.empty);
+//        if(commentAdapter.getItemCount()==0){
+//            recyclerView.setVisibility(View.GONE);
+//            emptyData.setVisibility(View.VISIBLE);
+//        }else{
+//            recyclerView.setVisibility(View.VISIBLE);
+//            emptyData.setVisibility(View.GONE);
+//        }
+
+//        TextView empty = (TextView)findViewById(R.id.empty);
+//        if(travelAdapter.getItemCount()==0){
+//            empty.setVisibility(View.VISIBLE);
+//        }else{
+//            empty.setVisibility(View.GONE);
+//        }
 
         ImageButton button1 = (ImageButton)findViewById(R.id.btn_home);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -123,4 +141,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
