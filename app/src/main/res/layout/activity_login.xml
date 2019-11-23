@@ -26,7 +26,7 @@
             android:layout_marginTop="60dp"/>
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/editText"
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -38,7 +38,7 @@
         android:inputType="textEmailAddress" />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
-            android:id="@+id/editText2"
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
