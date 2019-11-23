@@ -39,14 +39,6 @@ public class LoginActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-//        SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
-//        String strContact = sp.getString("person", "");
-//
-//        // 변환
-//        Person contact = gson.fromJson(strContact, Person.class);
-//        Toast.makeText(getApplicationContext(), "이메일 :" +contact.getEt_email(), Toast.LENGTH_SHORT).show();
-
-
         BootstrapButton button = (BootstrapButton)findViewById(R.id.btn_login);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                     if(check==true){
                         Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("str","로그인 되었습니다.");
+                        Intent intent2 = new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(intent2);
+                        finish();
                     }else{
                         Toast.makeText(getApplicationContext(), "비밀번호를 다시 확인해주세요.", Toast.LENGTH_SHORT).show();
                         Log.e("str","비밀번호를 다시 확인해주세요.");
@@ -88,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(),SignupActivity.class);
                 startActivity(intent1);
+                finish();
             }
         });
     }

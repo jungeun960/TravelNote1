@@ -49,6 +49,14 @@ public class SignupActivity extends AppCompatActivity {
                 BootstrapEditText et_pass = (BootstrapEditText)findViewById(R.id.et_pass);
                 BootstrapEditText et_pass_ok = (BootstrapEditText)findViewById(R.id.et_pass_ok);
 
+//                SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+//                String em = et_email.getText().toString();
+//                String value = sharedPreferences.getString(em, "");
+//                if(em.isEmpty()){
+//                    Toast.makeText(getApplicationContext(), "사용가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
+//                    Log.e("str","사용가능한 아이디 입니다.");
+//                }
+
                 if(et_email.getText().toString().length()==0){
                     Toast.makeText(getApplicationContext(), "Email을 입력하세요!", Toast.LENGTH_SHORT).show();
                     et_email.requestFocus();
@@ -98,6 +106,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
