@@ -12,10 +12,9 @@ import android.widget.ImageButton;
 import com.example.travelnote1.R;
 import com.example.travelnote1.YoutubeAdapter;
 import com.example.travelnote1.공유하기.SharedActivity;
-import com.example.travelnote1.유튜브.DataSetList;
 import com.example.travelnote1.폴더추가하기.AddActivity;
 import com.example.travelnote1.폴더추가하기.MainActivity;
-import com.example.travelnote1.프로필.ProfileActivity;
+import com.example.travelnote1.ProfileActivity;
 
 import java.util.ArrayList;
 

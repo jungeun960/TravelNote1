@@ -4,21 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.travelnote1.폴더추가하기.MainActivity;
 import com.example.travelnote1.프로필.ProfileEditActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +32,9 @@ import java.util.List;
 public class SignupActivity extends AppCompatActivity {
 
     private Gson gson;
+    private static final int REQUEST_CODE = 0;
+    private Uri photoUri;
+    private BootstrapCircleThumbnail photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +44,20 @@ public class SignupActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        setInsertButton();
 
+        photo = findViewById(R.id.photo);
+
+        photo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+
+        setInsertButton();
     }
 
     private void setInsertButton() {
@@ -48,6 +69,7 @@ public class SignupActivity extends AppCompatActivity {
                 BootstrapEditText et_name = (BootstrapEditText)findViewById(R.id.et_name);
                 BootstrapEditText et_pass = (BootstrapEditText)findViewById(R.id.et_pass);
                 BootstrapEditText et_pass_ok = (BootstrapEditText)findViewById(R.id.et_pass_ok);
+
 
 //                SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
 //                String em = et_email.getText().toString();
@@ -91,6 +113,7 @@ public class SignupActivity extends AppCompatActivity {
                 person.setEt_email(et_email.getText().toString());
                 person.setEt_name(et_name.getText().toString());
                 person.setEt_pass(et_pass.getText().toString());
+                person.setPhoto(photoUri.toString());
 
                 String email = et_email.getText().toString();
 
@@ -110,6 +133,24 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    photoUri = data.getData();
+                    Picasso.with(this).load(photoUri).into(photo);
+                    Log.e("갤러리 진입","경로 : "+photoUri);
+                } catch (Exception e) {
+
+                }
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 

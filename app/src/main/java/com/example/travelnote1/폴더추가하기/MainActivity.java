@@ -5,18 +5,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.travelnote1.Person;
 import com.example.travelnote1.R;
 import com.example.travelnote1.유튜브.YoutubeActivity;
 import com.example.travelnote1.공유하기.SharedActivity;
-import com.example.travelnote1.프로필.ProfileActivity;
+import com.example.travelnote1.ProfileActivity;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -26,11 +27,23 @@ public class MainActivity extends AppCompatActivity {
     private TravelAdapter travelAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+    private TextView tv_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tv_name = (TextView)findViewById(R.id.tv_name);
+        // 불러오기
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+        String User = sharedPreferences.getString(Useremail,"");
+        Gson gson = new Gson();
+        Person person = gson.fromJson(User,Person.class);
+        tv_name.setText(person.getEt_name());
+
+
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
         recyclerView = (RecyclerView)findViewById(R.id.recycle);

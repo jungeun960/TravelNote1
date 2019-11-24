@@ -47,8 +47,8 @@ public class LoginActivity extends AppCompatActivity {
                 String email = et_email.getText().toString();
                 String password = et_password.getText().toString();
 
+                // 회원정보 조회하기
                 SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
-
                 String value = sharedPreferences.getString(email, "");
                 Log.e("str",value);
 
@@ -66,6 +66,10 @@ public class LoginActivity extends AppCompatActivity {
                     if(check==true){
                         Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("str","로그인 되었습니다.");
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("CurrentUser",email);
+                        editor.commit();//save를 완료하라
+
                         Intent intent2 = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(intent2);
                         finish();

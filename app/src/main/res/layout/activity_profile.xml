@@ -39,7 +39,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -59,11 +59,12 @@
                     app:showOutline="true" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView"
+            <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                android:id="@+id/photo"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                app:srcCompat="@drawable/no"
+                android:src="@drawable/no"
+                app:hasBorder="true"
                 android:layout_weight="1"/>
 
         </LinearLayout>

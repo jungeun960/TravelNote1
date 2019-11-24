@@ -4,15 +4,16 @@ public class Person {
     private String et_email;
     private String et_name;
     private String et_pass;
-    private String et_pass_ok;
+    private String photo;
 
-    public Person(String et_email, String et_name, String et_pass, String et_pass_ok) {
+    public Person() {
+    }
+
+    public Person(String et_email, String et_name, String et_pass, String photo) {
         this.et_email = et_email;
         this.et_name = et_name;
         this.et_pass = et_pass;
-    }
-
-    public Person() {
+        this.photo = photo;
     }
 
     public String getEt_email() {
@@ -39,11 +40,11 @@ public class Person {
         this.et_pass = et_pass;
     }
 
-    public String getEt_pass_ok() {
-        return et_pass_ok;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setEt_pass_ok(String et_pass_ok) {
-        this.et_pass_ok = et_pass_ok;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
