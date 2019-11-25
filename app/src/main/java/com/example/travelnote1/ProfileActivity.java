@@ -67,6 +67,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        // 로그아웃
+        BootstrapButton logout = (BootstrapButton)findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // 하단 버튼
         ImageButton button1 = (ImageButton)findViewById(R.id.btn_home);
         ImageButton button2 = (ImageButton)findViewById(R.id.btn_shared);

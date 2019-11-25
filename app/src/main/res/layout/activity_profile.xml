@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
             >
 
             <LinearLayout
@@ -95,7 +94,7 @@
             android:text="건의하기" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/button9"
+            android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

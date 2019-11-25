@@ -72,6 +72,7 @@ public class SignupActivity extends AppCompatActivity {
                 if(value.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "사용가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
                     Log.e("str", "사용가능한 아이디 입니다.");
+                    // edittext 수정 불가능하게 만듬
                     et_email.setFocusable(false);
                     et_email.setClickable(false);
                     check_email=true;
