@@ -1,4 +1,4 @@
-package com.example.travelnote1.폴더추가하기;
+package com.example.travelnote1;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,9 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.travelnote1.R;
-import com.example.travelnote1.공유하기.Share;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

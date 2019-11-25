@@ -1,4 +1,4 @@
-package com.example.travelnote1.폴더추가하기;
+package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,11 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.travelnote1.Person;
-import com.example.travelnote1.R;
 import com.example.travelnote1.유튜브.YoutubeActivity;
-import com.example.travelnote1.공유하기.SharedActivity;
-import com.example.travelnote1.ProfileActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

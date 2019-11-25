@@ -1,4 +1,4 @@
-package com.example.travelnote1.공유하기;
+package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 

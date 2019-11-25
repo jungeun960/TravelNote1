@@ -1,10 +1,9 @@
-package com.example.travelnote1.폴더추가하기;
+package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.bumptech.glide.Glide;
-import com.example.travelnote1.R;
-import com.example.travelnote1.공유하기.Share;
-import com.example.travelnote1.공유하기.ShareAdapter;
-import com.example.travelnote1.공유하기.Shared1Activity;
-import com.example.travelnote1.공유하기.SharedActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

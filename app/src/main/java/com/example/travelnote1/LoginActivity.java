@@ -7,20 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
-import com.example.travelnote1.폴더추가하기.MainActivity;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,6 +28,18 @@ public class LoginActivity extends AppCompatActivity {
         // Hide ActionBar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
+        }
+
+        // 로그인한 유저정보가 있는지 확인
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        String value = sharedPreferences.getString("CurrentUser", "");
+        Log.e("str",value);
+        if(value.isEmpty()){
+
+        }else{
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         BootstrapButton button = (BootstrapButton)findViewById(R.id.btn_login);

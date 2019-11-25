@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".공유하기.SharedResultActivity"
+    tools:context=".SharedResultActivity"
     android:background="#ffffff">
 
     <LinearLayout

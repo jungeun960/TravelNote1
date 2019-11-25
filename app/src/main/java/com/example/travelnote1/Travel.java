@@ -1,4 +1,4 @@
-package com.example.travelnote1.폴더추가하기;
+package com.example.travelnote1;
 
 public class Travel {
 

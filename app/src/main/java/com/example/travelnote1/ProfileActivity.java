@@ -18,9 +18,6 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.example.travelnote1.유튜브.YoutubeActivity;
-import com.example.travelnote1.폴더추가하기.AddActivity;
-import com.example.travelnote1.폴더추가하기.MainActivity;
-import com.example.travelnote1.공유하기.SharedActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +42,9 @@ public class ProfileActivity extends AppCompatActivity {
         tv_name.setText(person.getEt_name());
         tv_email.setText(person.getEt_email());
         String imguri = person.getPhoto();
-        Picasso.with(this).load(imguri).into(img);
+        //File f = new File(imguri);
+
+        Picasso.with(this).load(Uri.parse(imguri)).into(img);
 
         // 웹페이지 이동 , 건의하기
         Button button_web = (Button)findViewById(R.id.btn_Web);
@@ -74,6 +73,12 @@ public class ProfileActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 현재유저 키 삭제
+                SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+                //String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("CurrentUser");
+                editor.commit();
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }
