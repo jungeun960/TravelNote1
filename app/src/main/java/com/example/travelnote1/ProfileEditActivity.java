@@ -1,4 +1,4 @@
-package com.example.travelnote1.프로필;
+package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 

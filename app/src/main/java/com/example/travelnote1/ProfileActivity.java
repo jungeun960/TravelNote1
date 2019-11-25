@@ -2,11 +2,8 @@ package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +18,6 @@ import com.example.travelnote1.유튜브.YoutubeActivity;
 import com.example.travelnote1.폴더추가하기.AddActivity;
 import com.example.travelnote1.폴더추가하기.MainActivity;
 import com.example.travelnote1.공유하기.SharedActivity;
-import com.example.travelnote1.프로필.ProfileEditActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 

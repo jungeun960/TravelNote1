@@ -27,7 +27,7 @@
         <activity android:name=".공유하기.Shared1Activity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".공유하기.SharedActivity" />
-        <activity android:name=".프로필.ProfileEditActivity" />
+        <activity android:name=".ProfileEditActivity" />
         <activity android:name=".폴더추가하기.AddActivity" />
         <activity
             android:name=".Splash"
