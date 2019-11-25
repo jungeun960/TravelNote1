@@ -2,6 +2,8 @@ package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
@@ -23,7 +26,6 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
         TypefaceProvider.registerDefaultIconSets();
 
         TextView tv_name = (TextView)findViewById(R.id.tv_name);
-        TextView tv_email = (TextView)findViewById(R.id.tv_email);
+        final TextView tv_email = (TextView)findViewById(R.id.tv_email);
         BootstrapCircleThumbnail img = (BootstrapCircleThumbnail) findViewById(R.id.photo);
 
         // 회원정보 불러오기
@@ -74,6 +76,15 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // 탈퇴하기
+        Button out = (Button)findViewById(R.id.out);
+        out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show();
             }
         });
 
@@ -160,5 +171,35 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
+    void show()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("탈퇴하기");
+        builder.setMessage("정말로 탈퇴하시겠습니까? 탈퇴 시 소중한 기록이 모두 삭제됩니다.");
+        builder.setPositiveButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        builder.setNegativeButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 쉐어드에서 사용자 정보 삭제
+                        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+                        String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.remove(Useremail);
+                        editor.commit();
+
+                        // 로그인 페이지로 이동
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+
+                        Toast.makeText(getApplicationContext(),"탈퇴합니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        builder.show();
+    }
 
 }

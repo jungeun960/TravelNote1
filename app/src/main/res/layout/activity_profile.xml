@@ -113,7 +113,7 @@
             android:textSize="10dp" />
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
