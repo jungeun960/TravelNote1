@@ -16,14 +16,14 @@
         >
 
         <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-            android:id="@+id/photo"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:src="@drawable/no"
-            app:hasBorder="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="10dp"/>
+        android:id="@+id/photo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:src="@drawable/no"
+        app:hasBorder="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

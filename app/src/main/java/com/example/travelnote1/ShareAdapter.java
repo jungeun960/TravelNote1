@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +22,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHolder>
     implements Filterable {
@@ -78,7 +85,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                 implements View.OnCreateContextMenuListener {
         // 아이템 뷰를 저장하는 뷰홀더 클래스.
 
-        protected ImageView iv_profile;
+        protected BootstrapCircleThumbnail iv_profile;
         protected TextView tv_name;
         protected TextView tv_content;
         protected TextView tv_title;
@@ -86,7 +93,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             // 뷰 객체에 대한 참조. (hold strong reference)
-            this.iv_profile=(ImageView)itemView.findViewById(R.id.iv_profile);
+            this.iv_profile=(BootstrapCircleThumbnail) itemView.findViewById(R.id.iv_profile);
             this.tv_name=(TextView)itemView.findViewById(R.id.tv_name);
             this.tv_content=(TextView)itemView.findViewById(R.id.tv_content);
             this.tv_title=(TextView)itemView.findViewById(R.id.tv_title);
@@ -131,7 +138,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                                 String strtitle = et_title.getText().toString();
                                 String strcontext = et_context.getText().toString();
 
-                                Share share = new Share(R.mipmap.ic_launcher,"홓홓",strcontext,strtitle);
+                                Share share = new Share("content://com.android.providers.media.documents/document/image%3A210690","홓홓",strcontext,strtitle);
 
                                 // 8. ListArray에 있는 데이터를 변경하고
                                 arrayList.set(getAdapterPosition(), share);
@@ -211,7 +218,8 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
     public void onBindViewHolder(@NonNull final ShareAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
 
-        holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
+        Picasso.with(activity).load(arrayList.get(position).getIv_profile()).into(holder.iv_profile);
+        //holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
         holder.tv_name.setText(arrayList.get(position).getTv_name()); // 이름 가져오기
         holder.tv_content.setText(arrayList.get(position).getTv_cotent()); // 내용 가져오기
         holder.tv_title.setText(arrayList.get(position).getTv_title());

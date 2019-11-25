@@ -1,16 +1,26 @@
 package com.example.travelnote1;
 
 public class Share {
-    private int iv_profile; //imageView int 임
+    private String iv_profile;
     private String tv_name;
     private String tv_cotent;
     private String tv_title;
 
-    public int getIv_profile() {
+    public Share(String iv_profile, String tv_name, String tv_cotent, String tv_title) {
+        this.iv_profile = iv_profile;
+        this.tv_name = tv_name;
+        this.tv_cotent = tv_cotent;
+        this.tv_title = tv_title;
+    }
+
+    public Share() {
+    }
+
+    public String getIv_profile() {
         return iv_profile;
     }
 
-    public void setIv_profile(int iv_profile) {
+    public void setIv_profile(String iv_profile) {
         this.iv_profile = iv_profile;
     }
 
@@ -35,13 +45,6 @@ public class Share {
     }
 
     public void setTv_title(String tv_title) {
-        this.tv_title = tv_title;
-    }
-
-    public Share(int iv_profile, String tv_name, String tv_cotent, String tv_title) {
-        this.iv_profile = iv_profile;
-        this.tv_name = tv_name;
-        this.tv_cotent = tv_cotent;
         this.tv_title = tv_title;
     }
 }
