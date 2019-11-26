@@ -1,4 +1,4 @@
-package com.example.travelnote1.유튜브;
+package com.example.travelnote1;
 
 public class DataSetList {
     String link;

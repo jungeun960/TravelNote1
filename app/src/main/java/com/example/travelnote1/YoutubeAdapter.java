@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelnote1.유튜브.DataSetList;
-import com.example.travelnote1.유튜브.VideoFullScreen;
-
 import java.util.ArrayList;
 
 public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeViewHolder>{

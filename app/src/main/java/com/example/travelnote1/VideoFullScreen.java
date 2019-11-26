@@ -1,4 +1,4 @@
-package com.example.travelnote1.유튜브;
+package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 

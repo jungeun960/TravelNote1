@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     >
 
 
@@ -20,6 +21,52 @@
         android:scrollbarThumbVertical="@android:color/darker_gray"
         android:scrollbars="vertical" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10dp"
+            android:text="공유하고 싶은 영상 링크를 등록해보세요." />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/et_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:ems="10"
+                app:bootstrapBrand="info"
+                android:hint="영상의 고유번호를 입력해주세요."
+                android:layout_weight="4"
+                android:inputType="textEmailAddress" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/btn_link_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="추가하기"
+                app:bootstrapBrand="primary"
+                app:buttonMode="regular"
+                app:showOutline="true"
+                app:roundedCorners="true"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
 
 
     <LinearLayout

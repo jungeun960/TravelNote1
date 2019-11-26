@@ -15,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".유튜브.VideoFullScreen"
+            android:name=".VideoFullScreen"
             android:screenOrientation="landscape" />
-        <activity android:name=".유튜브.YoutubeActivity" />
+        <activity android:name=".YoutubeActivity" />
         <activity android:name=".NoteActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />

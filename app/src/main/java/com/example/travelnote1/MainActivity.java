@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.travelnote1.유튜브.YoutubeActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

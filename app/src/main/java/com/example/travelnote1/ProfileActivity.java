@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
-import com.example.travelnote1.유튜브.YoutubeActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
