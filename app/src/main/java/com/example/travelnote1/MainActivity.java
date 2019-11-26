@@ -14,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,15 +32,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loadData();
+
+        // 회원 닉네임 불러오기
         tv_name = (TextView)findViewById(R.id.tv_name);
-        // 불러오기
         SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
         String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
         String User = sharedPreferences.getString(Useremail,"");
         Gson gson = new Gson();
         Person person = gson.fromJson(User,Person.class);
         tv_name.setText(person.getEt_name());
-
 
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        arrayList = new ArrayList<>();
+        //arrayList = new ArrayList<>();
 
         // 리사이클러뷰에 mainAdapter 객체 지정.
         travelAdapter = new TravelAdapter(this, arrayList);
@@ -68,13 +71,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
 //        Travel mainData1 = new Travel("content://com.android.providers.media.documents/document/image%3A210690", "유럽여행 28박 29일","2019.11.12");
 //        Travel mainData2 = new Travel("content://com.android.providers.media.documents/document/image%3A210691", "대만여행 3박 4일","2018.01.12");
 //        arrayList.add(mainData1); // 내용 추가
 //        arrayList.add(mainData2); // 내용 추가
 //        travelAdapter.notifyDataSetChanged();
 
+        // 폴더 추가 시
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         String imageUri = intent.getStringExtra("imageUri");
@@ -84,9 +87,23 @@ public class MainActivity extends AppCompatActivity {
             Travel mainData = new Travel(imageUri, title, date);
             arrayList.add(mainData); // 내용 추가
             travelAdapter.notifyDataSetChanged();
+
+            // 현재 회원의 email 불러오기
+            String Useremail1 = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+
+            // 데이터 저장하기
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Gson gson1 = new Gson();
+            String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+
+            // 회원 email + list로 리사이클러뷰 key값 생성하기(자기만 보는 일기)
+            String list_name = Useremail1+"list";
+            editor.putString(list_name, json);
+            editor.apply();
         }
         //travelAdapter.notifyItemInserted(0);
 
+        // 폴더가 없을 때 이미지 출력하기
         ImageView emptyData = (ImageView) findViewById(R.id.empty);
         if(travelAdapter.getItemCount()==0){
             recyclerView.setVisibility(View.GONE);
@@ -96,13 +113,7 @@ public class MainActivity extends AppCompatActivity {
             emptyData.setVisibility(View.GONE);
         }
 
-//        TextView empty = (TextView)findViewById(R.id.empty);
-//        if(travelAdapter.getItemCount()==0){
-//            empty.setVisibility(View.VISIBLE);
-//        }else{
-//            empty.setVisibility(View.GONE);
-//        }
-
+        // 하단 바
         ImageButton button1 = (ImageButton)findViewById(R.id.btn_home);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +162,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent5);
             }
         });
+    }
+
+    private void loadData() { // 데이터 들고오기 oncreate에 선언 mExampleList = new ArrayList<>(); 지우고
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        Gson gson = new Gson();
+        // 현재 회원의 email 불러오기
+        String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+        String list_name = Useremail+"list";
+        String json = sharedPreferences.getString(list_name, null);
+        Type type = new TypeToken<ArrayList<Travel>>() {}.getType();
+        arrayList = gson.fromJson(json, type);
+
+        if (arrayList == null) { // 비어있으면 객체 선언
+            arrayList = new ArrayList<>();
+        }
     }
 
 }
