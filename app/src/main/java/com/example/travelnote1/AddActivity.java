@@ -35,11 +35,6 @@ public class AddActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 0;
     private Bitmap img;
     private Uri photoUri;
-//    private ArrayList<Travel> arrayList; // 어댑터에 들어갈 list
-//    private TravelAdapter travelAdapter;
-//    private RecyclerView recyclerView;
-//    private LinearLayoutManager linearLayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +44,6 @@ public class AddActivity extends AppCompatActivity {
         travel_image = findViewById(R.id.travel_image);
         travel_title = findViewById(R.id.travel_title);
         BootstrapButton button = (BootstrapButton)findViewById(R.id.btn_travel);
-
-//        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-//        recyclerView = (RecyclerView)findViewById(R.id.recycle);
-//        //수평(Horizontal) 방향으로 아이템을 배치
-//        linearLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//
-//        // 리사이클러뷰에 표시할 데이터 리스트 생성.
-//        arrayList = new ArrayList<>();
-//
-//        // 리사이클러뷰에 mainAdapter 객체 지정.
-//        travelAdapter = new TravelAdapter(this, arrayList);
-//        recyclerView.setAdapter(travelAdapter);
-
 
         // 갤러리 진입
         travel_image.setOnClickListener(new View.OnClickListener(){
@@ -87,20 +68,6 @@ public class AddActivity extends AppCompatActivity {
 
                 String title = travel_title.getText().toString();
                 Uri imageUri = photoUri;
-
-//                Travel mainData = new Travel(imageUri.toString(), title,time1);
-//                arrayList.add(mainData); // 내용 추가
-//                travelAdapter.notifyDataSetChanged();
-//
-//                // 데이터 저장하기
-//                SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
-//                String listname = Useremail+"list";
-//                Gson gson = new Gson();
-//                String json = gson.toJson(arrayList); // 리스트 객체를 json으로 변형
-//                editor.putString(listname, json);
-//                editor.apply();
 
                 Log.i("여행 추가", "제목 : "+title +"이미지 uri :"+imageUri);
                 intent.putExtra("title",title);

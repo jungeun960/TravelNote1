@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -79,19 +80,21 @@ public class MainActivity extends AppCompatActivity {
         String imageUri = intent.getStringExtra("imageUri");
         String date = intent.getStringExtra("date");
         //Toast.makeText(getApplicationContext(), "제목은 "+title, Toast.LENGTH_SHORT).show();
-        Travel mainData = new Travel(imageUri, title,date);
-        arrayList.add(mainData); // 내용 추가
-        travelAdapter.notifyDataSetChanged();
+        if(title!=null&&imageUri!=null&&date!=null) {
+            Travel mainData = new Travel(imageUri, title, date);
+            arrayList.add(mainData); // 내용 추가
+            travelAdapter.notifyDataSetChanged();
+        }
         //travelAdapter.notifyItemInserted(0);
 
-//        emptyData = (ImageView) findViewById(R.id.empty);
-//        if(commentAdapter.getItemCount()==0){
-//            recyclerView.setVisibility(View.GONE);
-//            emptyData.setVisibility(View.VISIBLE);
-//        }else{
-//            recyclerView.setVisibility(View.VISIBLE);
-//            emptyData.setVisibility(View.GONE);
-//        }
+        ImageView emptyData = (ImageView) findViewById(R.id.empty);
+        if(travelAdapter.getItemCount()==0){
+            recyclerView.setVisibility(View.GONE);
+            emptyData.setVisibility(View.VISIBLE);
+        }else{
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyData.setVisibility(View.GONE);
+        }
 
 //        TextView empty = (TextView)findViewById(R.id.empty);
 //        if(travelAdapter.getItemCount()==0){
