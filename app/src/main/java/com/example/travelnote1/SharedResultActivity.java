@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.example.travelnote1.Comment;
 import com.example.travelnote1.CommentAdapter;
 import com.example.travelnote1.R;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,7 +41,7 @@ public class SharedResultActivity extends AppCompatActivity {
         String name = "";
         String title = "";
         String content = "";
-        int profile = 0;
+        String profile = "";
         int post_position = 0;
 
         Bundle extras = getIntent().getExtras();
@@ -44,7 +49,7 @@ public class SharedResultActivity extends AppCompatActivity {
         name = extras.getString("name");
         title = extras.getString("title");
         content = extras.getString("content");
-        profile = extras.getInt("profile");
+        profile = extras.getString("profile");
         post_position = extras.getInt("position");
 
         TextView vname = (TextView) findViewById(R.id.re_name);
@@ -55,7 +60,7 @@ public class SharedResultActivity extends AppCompatActivity {
         vname.setText(name);
         vtitle.setText(title);
         vcontent.setText(content);
-        vprofile.setImageResource(profile);
+        Picasso.with(this).load(Uri.parse(profile)).into(vprofile);
 
         // 댓글 리사이클러뷰 생성
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
@@ -78,6 +83,16 @@ public class SharedResultActivity extends AppCompatActivity {
 //        commentAdapter.notifyDataSetChanged();
 
 
+
+        BootstrapCircleThumbnail current_img = (BootstrapCircleThumbnail)findViewById(R.id.current_img);
+        // 회원정보 불러오기
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+        String User = sharedPreferences.getString(Useremail,"");
+        Gson gson = new Gson();
+        Person person = gson.fromJson(User,Person.class);
+        String img = person.getPhoto();
+        Picasso.with(this).load(Uri.parse(img)).into(current_img);
 
         // 댓글 작성
         post = (Button)findViewById(R.id.post);

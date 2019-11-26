@@ -131,6 +131,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:hasBorder="false"
+            android:id="@+id/current_img"
             android:src="@drawable/me"
             app:bootstrapBrand="primary"
             android:layout_marginLeft="10dp"
