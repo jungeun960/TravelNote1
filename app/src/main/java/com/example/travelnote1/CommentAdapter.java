@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomViewHolder> {
@@ -90,7 +92,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomVi
                                 String strtitle = et_title.getText().toString();
                                 String strcontext = et_context.getText().toString();
 
-                                Comment comment = new Comment(R.mipmap.ic_launcher,"dd","dd");
+                                Comment comment = new Comment("file:///com.android.providers.media.documents/document/image%3A210690","dd","dd");
 
                                 // 8. ListArray에 있는 데이터를 변경하고
                                 arrayList.set(getAdapterPosition(), comment);
@@ -151,7 +153,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomVi
     public void onBindViewHolder(@NonNull final CommentAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
 
-        holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
+        Picasso.with(activity).load(arrayList.get(position).getIv_profile()).into(holder.iv_profile);
+        //holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
         holder.tv_name.setText(arrayList.get(position).getTv_name()); // 이름 가져오기
         holder.tv_comment.setText(arrayList.get(position).getTv_comment()); // 내용 가져오기
         holder.itemView.setTag(position);

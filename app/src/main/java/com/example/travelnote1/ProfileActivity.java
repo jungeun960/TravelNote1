@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -150,14 +152,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
-                startActivityForResult(intent,1);
+                startActivity(intent);
+                //startActivityForResult(intent,1);
             }
         });
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode, resultCode, data);
+//
 //        TextView tv_name = (TextView)findViewById(R.id.tv_name);
 //        BootstrapCircleThumbnail img = (BootstrapCircleThumbnail) findViewById(R.id.photo);
 //
@@ -172,9 +175,10 @@ public class ProfileActivity extends AppCompatActivity {
 //                //digit_view.setText(data.getStringExtra("data_digit"));
 //            }
 //        }
-    }
+//    }
 
 
+    // 탈퇴하기
     void show()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -193,6 +197,7 @@ public class ProfileActivity extends AppCompatActivity {
                         String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.remove(Useremail);
+                        editor.remove("CurrentUser");
                         editor.commit();
 
                         // 로그인 페이지로 이동

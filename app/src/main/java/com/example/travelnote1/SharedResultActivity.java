@@ -19,8 +19,10 @@ import com.example.travelnote1.Comment;
 import com.example.travelnote1.CommentAdapter;
 import com.example.travelnote1.R;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class SharedResultActivity extends AppCompatActivity {
@@ -31,6 +33,7 @@ public class SharedResultActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private EditText add_comment;
     private Button post;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +45,17 @@ public class SharedResultActivity extends AppCompatActivity {
         String title = "";
         String content = "";
         String profile = "";
-        int post_position = 0;
 
         Bundle extras = getIntent().getExtras();
 
+        // 게시글 내용 받아오기
         name = extras.getString("name");
         title = extras.getString("title");
         content = extras.getString("content");
         profile = extras.getString("profile");
-        post_position = extras.getInt("position");
+        date = extras.getString("date");
+
+        loadData();
 
         TextView vname = (TextView) findViewById(R.id.re_name);
         TextView vtitle = (TextView) findViewById(R.id.re_title);
@@ -70,7 +75,7 @@ public class SharedResultActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        arrayList = new ArrayList<>();
+        //arrayList = new ArrayList<>();
 
         // 리사이클러뷰에 shareAdapter 객체 지정.
         commentAdapter = new CommentAdapter(this, arrayList);
@@ -84,8 +89,8 @@ public class SharedResultActivity extends AppCompatActivity {
 
 
 
+        // 댓글창 회원 프로필 불러오기
         BootstrapCircleThumbnail current_img = (BootstrapCircleThumbnail)findViewById(R.id.current_img);
-        // 회원정보 불러오기
         SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
         String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
         String User = sharedPreferences.getString(Useremail,"");
@@ -101,17 +106,49 @@ public class SharedResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 add_comment = findViewById(R.id.add_comment);
                 if(add_comment.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(), "you can't send empty comment",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.",Toast.LENGTH_SHORT).show();
                 }else {
+
+                    // 회원정보 불러오기
+                    SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+                    String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+                    String User = sharedPreferences.getString(Useremail,"");
+                    Gson gson = new Gson();
+                    Person person = gson.fromJson(User,Person.class);
+                    String image = person.getPhoto();
+                    String name = person.getEt_name();
+
                     String comment = add_comment.getText().toString();
-                    Comment new_commment = new Comment(R.mipmap.ic_launcher, "절미", comment);
+                    Comment new_commment = new Comment(image, name, comment);
                     arrayList.add(new_commment);
                     commentAdapter.notifyDataSetChanged();
                     add_comment.setText(null);
+
+                    // 데이터 저장하기
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Gson gson1 = new Gson();
+                    String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+
+                    // 게시글의 생성 날짜를 key값으로 보내기
+                    editor.putString(date, json);
+                    editor.apply();
+
                 }
 
             }
         });
 
+    }
+
+    private void loadData() { // 데이터 들고오기 oncreate에 선언 mExampleList = new ArrayList<>(); 지우고
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(date, null);
+        Type type = new TypeToken<ArrayList<Comment>>() {}.getType();
+        arrayList = gson.fromJson(json, type);
+
+        if (arrayList == null) { // 비어있으면 객체 선언
+            arrayList = new ArrayList<>();
+        }
     }
 }

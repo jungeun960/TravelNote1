@@ -5,12 +5,14 @@ public class Share {
     private String tv_name;
     private String tv_cotent;
     private String tv_title;
+    private String date;
 
-    public Share(String iv_profile, String tv_name, String tv_cotent, String tv_title) {
+    public Share(String iv_profile, String tv_name, String tv_cotent, String tv_title, String date) {
         this.iv_profile = iv_profile;
         this.tv_name = tv_name;
         this.tv_cotent = tv_cotent;
         this.tv_title = tv_title;
+        this.date = date;
     }
 
     public Share() {
@@ -46,5 +48,13 @@ public class Share {
 
     public void setTv_title(String tv_title) {
         this.tv_title = tv_title;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

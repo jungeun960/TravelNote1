@@ -1,21 +1,24 @@
 package com.example.travelnote1;
 
 public class Comment {
-    private int iv_profile; //imageView int 임
+    private String iv_profile; //imageView int 임
     private String tv_name;
     private String tv_comment;
 
-    public Comment(int iv_profile, String tv_name, String tv_comment) {
+    public Comment(String iv_profile, String tv_name, String tv_comment) {
         this.iv_profile = iv_profile;
         this.tv_name = tv_name;
         this.tv_comment = tv_comment;
     }
 
-    public int getIv_profile() {
+    public Comment() {
+    }
+
+    public String getIv_profile() {
         return iv_profile;
     }
 
-    public void setIv_profile(int iv_profile) {
+    public void setIv_profile(String iv_profile) {
         this.iv_profile = iv_profile;
     }
 

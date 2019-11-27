@@ -39,9 +39,12 @@ public class ProfileEditActivity extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = getIntent();
-                et_name = findViewById(R.id.et_name);
-                intent.putExtra("name",et_name.getText().toString());
+                Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                startActivity(intent);
+//
+//                Intent intent = getIntent();
+//                et_name = findViewById(R.id.et_name);
+//                intent.putExtra("name",et_name.getText().toString());
 
                 //intent.putExtra("img",img);
                 //ByteArrayOutputStream stream = new ByteArrayOutputStream();
