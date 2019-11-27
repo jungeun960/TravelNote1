@@ -89,7 +89,7 @@ public class AddActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 try {
                     photoUri = data.getData();
-                    travel_image.setImageURI(photoUri);
+                    //travel_image.setImageURI(photoUri);
 //                    InputStream is = getContentResolver().openInputStream(photoUri);
 //                    Bitmap bitmap = BitmapFactory.decodeStream(is);
 //                    is.close();
@@ -101,7 +101,7 @@ public class AddActivity extends AppCompatActivity {
 //                    c.moveToFirst();
 //                    path = c.getString(index);
 //                    cursor.close();
-                    //Picasso.with(this).load(photoUri).into(travel_image);
+                    Picasso.with(this).load(photoUri).into(travel_image);
                     Log.e("갤러리 진입","경로 : "+photoUri);
                 } catch (Exception e) {
 

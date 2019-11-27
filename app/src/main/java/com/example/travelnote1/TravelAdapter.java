@@ -65,9 +65,9 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
     @Override
     public void onBindViewHolder(@NonNull final TravelAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
-        Uri uri = Uri.parse(arrayList.get(position).getImageUrl());
-        holder.travel_image.setImageURI(uri);
-        //Picasso.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
+        //Uri uri = Uri.parse(arrayList.get(position).getImageUrl());
+        //holder.travel_image.setImageURI(uri);
+        Picasso.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
         //Glide.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
         holder.travel_name.setText(arrayList.get(position).getTravel_name()); // 내용 가져오기
         holder.travel_date.setText(arrayList.get(position).getTravel_date());

@@ -138,14 +138,22 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                             public void onClick(View v) {
                                 String strtitle = et_title.getText().toString();
                                 String strcontext = et_context.getText().toString();
+                                String name = arrayList.get(getAdapterPosition()).getTv_name();
+                                String image = arrayList.get(getAdapterPosition()).getIv_profile();
 
-
-                                Share share = new Share("content://com.android.providers.media.documents/document/image%3A210690","홓홓",strcontext,strtitle);
-
+                                Share share = new Share(image,name,strcontext,strtitle);
                                 // 8. ListArray에 있는 데이터를 변경하고
                                 arrayList.set(getAdapterPosition(), share);
                                 // 9. 어댑터에서 RecyclerView에 반영하도록 합니다.
                                 notifyItemChanged(getAdapterPosition());
+
+                                SharedPreferences sharedPreferences = mContext.getSharedPreferences("shared", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                Gson gson1 = new Gson();
+                                String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+                                editor.putString("sharelist", json);
+                                editor.apply();
+
                                 dialog.dismiss();
                             }
                         });
@@ -228,10 +236,10 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
     public void onBindViewHolder(@NonNull final ShareAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
 
-        Uri uri = Uri.parse(arrayList.get(position).getIv_profile());
-        holder.iv_profile.setImageURI(uri);
+        //Uri uri = Uri.parse(arrayList.get(position).getIv_profile());
+        //holder.iv_profile.setImageURI(uri);
 
-        //Picasso.with(activity).load(arrayList.get(position).getIv_profile()).into(holder.iv_profile);
+        Picasso.with(activity).load(arrayList.get(position).getIv_profile()).into(holder.iv_profile);
         //holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
         holder.tv_name.setText(arrayList.get(position).getTv_name()); // 이름 가져오기
         holder.tv_content.setText(arrayList.get(position).getTv_cotent()); // 내용 가져오기
