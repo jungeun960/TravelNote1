@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        Travel mainData1 = new Travel("content://com.android.providers.media.documents/document/image%3A210690", "유럽여행 28박 29일","2019.11.12");
-//        Travel mainData2 = new Travel("content://com.android.providers.media.documents/document/image%3A210691", "대만여행 3박 4일","2018.01.12");
+//        Travel mainData1 = new Travel("file:///com.android.providers.media.documents/document/image%3A210690", "유럽여행 28박 29일","2019.11.12");
+//        Travel mainData2 = new Travel("file:///com.android.providers.media.documents/document/image%3A210691", "대만여행 3박 4일","2018.01.12");
 //        arrayList.add(mainData1); // 내용 추가
 //        arrayList.add(mainData2); // 내용 추가
 //        travelAdapter.notifyDataSetChanged();

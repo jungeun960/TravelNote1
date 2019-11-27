@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -138,6 +139,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                                 String strtitle = et_title.getText().toString();
                                 String strcontext = et_context.getText().toString();
 
+
                                 Share share = new Share("content://com.android.providers.media.documents/document/image%3A210690","홓홓",strcontext,strtitle);
 
                                 // 8. ListArray에 있는 데이터를 변경하고
@@ -164,6 +166,14 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                                         notifyItemRemoved(getAdapterPosition());
                                         notifyItemRangeChanged(getAdapterPosition(), arrayList.size());
                                         Toast.makeText(mContext,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+
+                                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("shared", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        Gson gson1 = new Gson();
+                                        String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+                                        editor.putString("sharelist", json);
+                                        editor.apply();
+
                                     }
                                 });
                         builder1.setNegativeButton("아니오",
@@ -218,7 +228,10 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
     public void onBindViewHolder(@NonNull final ShareAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
 
-        Picasso.with(activity).load(arrayList.get(position).getIv_profile()).into(holder.iv_profile);
+        Uri uri = Uri.parse(arrayList.get(position).getIv_profile());
+        holder.iv_profile.setImageURI(uri);
+
+        //Picasso.with(activity).load(arrayList.get(position).getIv_profile()).into(holder.iv_profile);
         //holder.iv_profile.setImageResource(arrayList.get(position).getIv_profile()); // 이미지 가져오기
         holder.tv_name.setText(arrayList.get(position).getTv_name()); // 이름 가져오기
         holder.tv_content.setText(arrayList.get(position).getTv_cotent()); // 내용 가져오기

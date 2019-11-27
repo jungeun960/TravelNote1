@@ -89,7 +89,19 @@ public class AddActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 try {
                     photoUri = data.getData();
-                    Picasso.with(this).load(photoUri).into(travel_image);
+                    travel_image.setImageURI(photoUri);
+//                    InputStream is = getContentResolver().openInputStream(photoUri);
+//                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+//                    is.close();
+//                    travel_image.setImageBitmap(bitmap);
+//                    String[] proj = {MediaStore.Images.Media.DATA};
+//                    Cursor c = getContentResolver().query(photoUri, proj, null, null, null);
+//                    int index = c.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//
+//                    c.moveToFirst();
+//                    path = c.getString(index);
+//                    cursor.close();
+                    //Picasso.with(this).load(photoUri).into(travel_image);
                     Log.e("갤러리 진입","경로 : "+photoUri);
                 } catch (Exception e) {
 

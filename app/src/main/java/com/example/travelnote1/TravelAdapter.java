@@ -2,7 +2,10 @@ package com.example.travelnote1;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +16,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomViewHolder> {
 
     //어댑터에 들어갈 list
     private ArrayList<Travel> arrayList;
-    //private Context context;
+    private Context context;
     Activity activity;
 
     public TravelAdapter(Activity act, ArrayList<Travel> arrayList) {
@@ -59,7 +65,9 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
     @Override
     public void onBindViewHolder(@NonNull final TravelAdapter.CustomViewHolder holder, final int position) {
         // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
-        Picasso.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
+        Uri uri = Uri.parse(arrayList.get(position).getImageUrl());
+        holder.travel_image.setImageURI(uri);
+        //Picasso.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
         //Glide.with(activity).load(arrayList.get(position).getImageUrl()).into(holder.travel_image);
         holder.travel_name.setText(arrayList.get(position).getTravel_name()); // 내용 가져오기
         holder.travel_date.setText(arrayList.get(position).getTravel_date());
@@ -116,6 +124,20 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
         try{
             arrayList.remove(position); // arrayList에서 제거
             notifyItemRemoved(position);// 새로고침해 지워줌
+
+            SharedPreferences sharedPreferences = activity.getSharedPreferences("shared", MODE_PRIVATE);
+
+            // 현재 회원의 email 불러오기
+            String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+            String list_name = Useremail+"list";
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Gson gson1 = new Gson();
+            String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+
+            editor.putString(list_name, json);
+            editor.apply();
+
         }catch (IndexOutOfBoundsException ex){
             ex.printStackTrace();
         }

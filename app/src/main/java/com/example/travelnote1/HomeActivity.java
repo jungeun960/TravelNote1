@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(noteAdapter);
 
 //        Note mainData = new Note("DAY-1 2019.01.10","스위스 페러글라이딩", "스위스 인터라켄",
-//                "content://com.android.providers.media.documents/document/image%3A210692","페러글라이딩 존잼이다ㅠ");
+//                "file://com.android.providers.media.documents/document/image%3A210692","페러글라이딩 존잼이다ㅠ");
 //        Note mainData1 = new Note("DAY-2 2019.01.11","비온다ㅠㅠ", "루체른",
 //                "content://com.android.providers.media.documents/document/image%3A210693","비와서 숙소에만 있는다ㅠㅠ 근데 숙소가 넘 이뿜..");
 //        arrayList.add(mainData); // 내용 추가
