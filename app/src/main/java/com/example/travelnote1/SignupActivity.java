@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,6 +42,8 @@ public class SignupActivity extends AppCompatActivity {
     private BootstrapEditText et_pass;
     private BootstrapEditText et_pass_ok;
     private boolean check_email=false; // 중복체크 확인 유무 판별하기
+    private CheckBox checkbox;
+    private boolean check_agree = false; // 약관 동의 유무
 
     private static final String TAG = "Photo";
     private Boolean isPermission = true;
@@ -64,6 +68,14 @@ public class SignupActivity extends AppCompatActivity {
         et_name = (BootstrapEditText)findViewById(R.id.et_name);
         et_pass = (BootstrapEditText)findViewById(R.id.et_pass);
         et_pass_ok = (BootstrapEditText)findViewById(R.id.et_pass_ok);
+        checkbox = (CheckBox)findViewById(R.id.checkbox);
+
+        checkbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                check_agree = true;
+            }
+        });
 
         // 프로필 사진 등록
         photo = findViewById(R.id.photo);
@@ -144,6 +156,10 @@ public class SignupActivity extends AppCompatActivity {
                     et_pass.setText("");
                     et_pass_ok.setText("");
                     et_pass.requestFocus();
+                    return;
+                }
+                if(check_agree==false){
+                    Toast.makeText(getApplicationContext(), "약관 동의가 필요합니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

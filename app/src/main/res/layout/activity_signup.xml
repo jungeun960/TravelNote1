@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:src="@drawable/no"
         app:hasBorder="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"/>
 
         <LinearLayout
@@ -95,6 +95,15 @@
             android:layout_marginTop="15dp"
             app:bootstrapBrand="info"
             android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:text="개인정보 제공에 동의 (필수)" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/button"
