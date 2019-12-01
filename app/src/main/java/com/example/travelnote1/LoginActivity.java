@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         final BootstrapEditText et_email =(BootstrapEditText)findViewById(R.id.et_email);
         final BootstrapEditText et_password = (BootstrapEditText)findViewById(R.id.et_password);
 
+
         // Hide ActionBar
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -37,7 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         if(value.isEmpty()){
 
         }else{
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+
+            Intent intent = new Intent(getApplicationContext(),LodingActivity.class);
             startActivity(intent);
             finish();
         }
@@ -67,13 +70,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     boolean check = password.equals(pass);
                     if(check==true){
-                        Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "로그인 되었습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("str","로그인 되었습니다.");
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("CurrentUser",email);
                         editor.commit();//save를 완료하라
 
-                        Intent intent2 = new Intent(getApplicationContext(),MainActivity.class);
+                        Intent intent2 = new Intent(getApplicationContext(),LodingActivity.class);
                         startActivity(intent2);
                         finish();
                     }else{
