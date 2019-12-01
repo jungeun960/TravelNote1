@@ -24,6 +24,10 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private String email;
+    private String imguri;
+    private String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
         Person person = gson.fromJson(User,Person.class);
         tv_name.setText(person.getEt_name());
         tv_email.setText(person.getEt_email());
-        String imguri = person.getPhoto();
+        email = person.getEt_email();
+        imguri = person.getPhoto();
+        name = person.getEt_name();
         //File f = new File(imguri);
 
         Picasso.with(this).load(Uri.parse(imguri)).into(img);
@@ -152,31 +158,14 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProfileEditActivity.class);
+                intent.putExtra("email",email);
+                intent.putExtra("image",imguri);
+                intent.putExtra("name",name);
                 startActivity(intent);
                 //startActivityForResult(intent,1);
             }
         });
     }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        TextView tv_name = (TextView)findViewById(R.id.tv_name);
-//        BootstrapCircleThumbnail img = (BootstrapCircleThumbnail) findViewById(R.id.photo);
-//
-//        if(resultCode==RESULT_OK) // 액티비티가 정상적으로 종료되었을 경우
-//        {
-//            if(requestCode==1) // InformationInput에서 호출한 경우에만 처리합니다.
-//            {               // 받아온 이름과 전화번호를 InformationInput 액티비티에 표시합니다.
-//                tv_name.setText(data.getStringExtra("name"));
-//                byte[] bytes = data.getByteArrayExtra("img");
-//                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                img.setImageBitmap(bmp);
-//                //digit_view.setText(data.getStringExtra("data_digit"));
-//            }
-//        }
-//    }
-
 
     // 탈퇴하기
     void show()
