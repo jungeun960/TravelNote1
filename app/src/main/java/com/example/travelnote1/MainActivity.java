@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -26,6 +29,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private TextView tv_name;
+
+    private ImageView ad;
+    int[] imageArray = {R.drawable.ad1, R.drawable.ad2, R.drawable.ad3, R.drawable.ad4, R.drawable.ad5,R.drawable.ad6};
+    String[] linkArray = {"http://www.modetourc.com/event/plan/detail.aspx?mloc=07&eidx=10128&siteno=4608",
+            "http://www.modetourc.com/event/plan/detail.aspx?mloc=07&eidx=6873&siteno=4608",
+            "http://www.modetourc.com/event/plan/detail.aspx?mloc=07&eidx=9796&siteno=4608",
+            "http://www.modetourc.com/event/plan/detail.aspx?mloc=07&eidx=9299&siteno=4608",
+            "http://www.modetourc.com/event/plan/detail.aspx?mloc=07&eidx=9184&siteno=4608",
+            "http://www.modetourc.com/event/plan/detail.aspx?mloc=07&eidx=10195&siteno=4608"};
+    int index = 0;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +56,36 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         Person person = gson.fromJson(User,Person.class);
         tv_name.setText(person.getEt_name());
+
+        ad = (ImageView)findViewById(R.id.ad);
+        //Picasso.with(this).load(R.drawable.ad2).into(ad);
+        //ad.setImageResource(R.drawable.ad2);
+
+        (new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                while (!Thread.interrupted())
+                    try
+                    {
+                        Thread.sleep(3000);
+                        runOnUiThread(new Runnable() // start actions in UI thread
+                        {
+                            @Override
+                            public void run()
+                            {
+                                ad.setImageResource(getCurrentlist());
+                            }
+                        });
+                    }
+                    catch (InterruptedException e)
+                    {
+                        // ooops
+                    }
+
+            }
+        })).start();
 
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
@@ -162,6 +206,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent5);
             }
         });
+    }
+
+    // 광고이미지
+    public int getCurrentlist(){
+        index++;
+        if(index >= imageArray.length){
+            index=0;
+        }
+
+        return imageArray[index];
     }
 
     private void loadData() { // 데이터 들고오기 oncreate에 선언 mExampleList = new ArrayList<>(); 지우고
