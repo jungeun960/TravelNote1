@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +36,7 @@ public class SharedResultActivity extends AppCompatActivity {
     private EditText add_comment;
     private Button post;
     private String date;
+    private TextView count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,16 @@ public class SharedResultActivity extends AppCompatActivity {
         TextView vname = (TextView) findViewById(R.id.re_name);
         TextView vtitle = (TextView) findViewById(R.id.re_title);
         TextView vcontent = (TextView) findViewById(R.id.re_content);
-        ImageView vprofile = (ImageView)findViewById(R.id.re_profile);
+        BootstrapCircleThumbnail vprofile = (BootstrapCircleThumbnail)findViewById(R.id.re_profile);
+        //ImageView likeButton = (ImageView)findViewById(R.id.likeButton);
+        count = (TextView)findViewById(R.id.count);
+
+//        likeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                show();
+//            }
+//        });
 
         vname.setText(name);
         vtitle.setText(title);
@@ -138,6 +150,27 @@ public class SharedResultActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    void show()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setTitle("AlertDialog Title");
+        builder.setMessage("이 글을 공감하시겠습니까?");
+        builder.setPositiveButton("확인",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
+
+                    }
+                });
+        builder.setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
     }
 
     private void loadData() { // 데이터 들고오기 oncreate에 선언 mExampleList = new ArrayList<>(); 지우고

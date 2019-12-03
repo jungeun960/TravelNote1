@@ -90,6 +90,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         protected TextView tv_name;
         protected TextView tv_content;
         protected TextView tv_title;
+        protected ImageView like;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,9 +99,27 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
             this.tv_name=(TextView)itemView.findViewById(R.id.tv_name);
             this.tv_content=(TextView)itemView.findViewById(R.id.tv_content);
             this.tv_title=(TextView)itemView.findViewById(R.id.tv_title);
+            this.like = (ImageView)itemView.findViewById(R.id.likeButton);
+
+            like.setOnClickListener(new View.OnClickListener() {
+                private  boolean fun = true;
+                @Override
+                public void onClick(View v) {
+                    if(fun){
+                        like.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                        fun = false;
+                    }else {
+                        fun=true;
+                        like.setImageResource(R.drawable.ic_favorite_black_24dp);
+
+                    }
+                }
+            });
             itemView.setOnCreateContextMenuListener(this);
             //2. OnCreateContextMenuListener 리스너를 현재 클래스에서 구현한다고 설정해둡니다.
         }
+
+
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -253,7 +272,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
             public void onClick(View v) {
 //                String curName = holder.tv_name.getText().toString();
 //                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
-                mListener.onItemClick(v, position) ;
+               // mListener.onItemClick(v, position) ;
             }
         });
 

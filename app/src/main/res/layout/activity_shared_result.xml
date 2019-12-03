@@ -28,19 +28,24 @@
                 android:orientation="horizontal"
                 android:layout_margin="10dp">
 
-                <ImageView
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
                     android:id="@+id/re_profile"
                     android:layout_width="25dp"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_height="25dp"
+                    android:src="@drawable/no"
+                    app:hasBorder="false"/>
 
                 <TextView
                     android:id="@+id/re_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:text="홓홓홓"
+                    android:layout_gravity="center"
                     android:textSize="10dp" />
+
+
             </LinearLayout>
 
             <TextView
@@ -68,17 +73,16 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="10dp">
 
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/ic_favorite_black_24dp"
                     android:layout_gravity="center_vertical"
                     tools:ignore="VectorDrawableCompat" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"

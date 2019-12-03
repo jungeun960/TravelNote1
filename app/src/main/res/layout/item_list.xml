@@ -74,14 +74,14 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/likeButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_weight="4"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_favorite_black_24dp"
+                app:srcCompat="@drawable/ic_favorite_border_black_24dp"
                 tools:ignore="VectorDrawableCompat" />
 
             <TextView
