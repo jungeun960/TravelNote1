@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         Person person = gson.fromJson(User,Person.class);
         tv_name.setText(person.getEt_name());
 
+
         ad = (ImageView)findViewById(R.id.ad);
         //Picasso.with(this).load(R.drawable.ad2).into(ad);
         //ad.setImageResource(R.drawable.ad2);
@@ -76,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
                             public void run()
                             {
                                 ad.setImageResource(getCurrentlist());
+
+                                final Intent intent1 = new Intent(Intent.ACTION_VIEW,Uri.parse(linkArray[index]));
+                                ad.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(intent1);
+                                    }
+                                });
+
+
                             }
                         });
                     }
