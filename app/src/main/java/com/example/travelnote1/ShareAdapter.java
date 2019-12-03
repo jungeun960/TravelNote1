@@ -91,6 +91,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         protected TextView tv_content;
         protected TextView tv_title;
         protected ImageView like;
+        protected TextView likecount;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,21 +101,8 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
             this.tv_content=(TextView)itemView.findViewById(R.id.tv_content);
             this.tv_title=(TextView)itemView.findViewById(R.id.tv_title);
             this.like = (ImageView)itemView.findViewById(R.id.likeButton);
+            this.likecount = (TextView)itemView.findViewById(R.id.likecount);
 
-            like.setOnClickListener(new View.OnClickListener() {
-                private  boolean fun = true;
-                @Override
-                public void onClick(View v) {
-                    if(fun){
-                        like.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                        fun = false;
-                    }else {
-                        fun=true;
-                        like.setImageResource(R.drawable.ic_favorite_black_24dp);
-
-                    }
-                }
-            });
             itemView.setOnCreateContextMenuListener(this);
             //2. OnCreateContextMenuListener 리스너를 현재 클래스에서 구현한다고 설정해둡니다.
         }
@@ -160,8 +148,9 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                                 String name = arrayList.get(getAdapterPosition()).getTv_name();
                                 String image = arrayList.get(getAdapterPosition()).getIv_profile();
                                 String date = arrayList.get(getAdapterPosition()).getDate();
+                                int count = arrayList.get(getAdapterPosition()).getCount();
 
-                                Share share = new Share(image,name,strcontext,strtitle,date);
+                                Share share = new Share(image,name,strcontext,strtitle,date,count);
                                 // 8. ListArray에 있는 데이터를 변경하고
                                 arrayList.set(getAdapterPosition(), share);
                                 // 9. 어댑터에서 RecyclerView에 반영하도록 합니다.
@@ -264,6 +253,23 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         holder.tv_name.setText(arrayList.get(position).getTv_name()); // 이름 가져오기
         holder.tv_content.setText(arrayList.get(position).getTv_cotent()); // 내용 가져오기
         holder.tv_title.setText(arrayList.get(position).getTv_title());
+        String a = Integer.toString(arrayList.get(position).getCount());
+        holder.likecount.setText(a);
+
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            private  boolean fun = true;
+            @Override
+            public void onClick(View v) {
+                if(fun){
+                    //like.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                    fun = false;
+                }else {
+                    fun=true;
+                    //like.setImageResource(R.drawable.ic_favorite_black_24dp);
+
+                }
+            }
+        });
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

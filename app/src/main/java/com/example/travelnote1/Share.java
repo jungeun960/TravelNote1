@@ -6,16 +6,18 @@ public class Share {
     private String tv_cotent;
     private String tv_title;
     private String date;
+    private int count;
 
-    public Share(String iv_profile, String tv_name, String tv_cotent, String tv_title, String date) {
+    public Share() {
+    }
+
+    public Share(String iv_profile, String tv_name, String tv_cotent, String tv_title, String date, int count) {
         this.iv_profile = iv_profile;
         this.tv_name = tv_name;
         this.tv_cotent = tv_cotent;
         this.tv_title = tv_title;
         this.date = date;
-    }
-
-    public Share() {
+        this.count = count;
     }
 
     public String getIv_profile() {
@@ -56,5 +58,13 @@ public class Share {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
