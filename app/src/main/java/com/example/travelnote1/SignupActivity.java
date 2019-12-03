@@ -44,6 +44,7 @@ public class SignupActivity extends AppCompatActivity {
     private boolean check_email=false; // 중복체크 확인 유무 판별하기
     private CheckBox checkbox;
     private boolean check_agree = false; // 약관 동의 유무
+    private boolean check_img = false;
 
     private static final String TAG = "Photo";
     private Boolean isPermission = true;
@@ -84,6 +85,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 권한 허용에 동의하지 않았을 경우 토스트를 띄웁니다.
                 if(isPermission) { //앨범에서 이미지 가져오기
+                    check_img=true;
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     startActivityForResult(intent, PICK_FROM_ALBUM);
@@ -170,7 +172,11 @@ public class SignupActivity extends AppCompatActivity {
                 person.setEt_email(et_email.getText().toString());
                 person.setEt_name(et_name.getText().toString());
                 person.setEt_pass(et_pass.getText().toString());
-                person.setPhoto(image_uri.toString());
+                if(check_img==true) {
+                    person.setPhoto(image_uri.toString());
+                }else {
+                    person.setPhoto("file:///storage/sdcard1/Gallery/new/no.PNG");
+                }
 
                 String email = et_email.getText().toString();
 
