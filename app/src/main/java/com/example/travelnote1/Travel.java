@@ -5,11 +5,16 @@ public class Travel {
     private String imageUrl;
     private String travel_name;
     private String travel_date;
+    private String id;
 
-    public Travel(String imageUrl, String travel_name, String travel_date) {
+    public Travel() {
+    }
+
+    public Travel(String imageUrl, String travel_name, String travel_date, String id) {
         this.imageUrl = imageUrl;
         this.travel_name = travel_name;
         this.travel_date = travel_date;
+        this.id = id;
     }
 
     public String getImageUrl() {
@@ -34,5 +39,13 @@ public class Travel {
 
     public void setTravel_date(String travel_date) {
         this.travel_date = travel_date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

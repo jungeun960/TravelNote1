@@ -20,7 +20,9 @@ import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -121,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                 intent.putExtra("travel_title", travel.getTravel_name());
                 intent.putExtra( "travel_img", travel.getImageUrl());
+                intent.putExtra("travel_id",travel.getId());
 
                 startActivity(intent);
             }
@@ -139,7 +142,13 @@ public class MainActivity extends AppCompatActivity {
         String date = intent.getStringExtra("date");
         //Toast.makeText(getApplicationContext(), "제목은 "+title, Toast.LENGTH_SHORT).show();
         if(title!=null&&imageUri!=null&&date!=null) {
-            Travel mainData = new Travel(imageUri, title, date);
+
+            // 작성일 구하기
+            SimpleDateFormat format1 = new SimpleDateFormat( "MM/dd HH:mm:ss");
+            Date time = new Date();
+            String id = format1.format(time);
+
+            Travel mainData = new Travel(imageUri, title, date,id);
             arrayList.add(mainData); // 내용 추가
             travelAdapter.notifyDataSetChanged();
 

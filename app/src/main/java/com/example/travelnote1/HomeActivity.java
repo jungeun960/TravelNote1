@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,9 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -24,11 +30,14 @@ public class HomeActivity extends AppCompatActivity {
     private NoteAdapter noteAdapter;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+    private String travel_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        loadData();
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
         recyclerView = (RecyclerView)findViewById(R.id.recycle);
@@ -39,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        arrayList = new ArrayList<>();
+        //arrayList = new ArrayList<>();
 
         noteAdapter = new NoteAdapter(this, arrayList);
         recyclerView.setAdapter(noteAdapter);
@@ -57,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String travel_title = intent.getStringExtra("travel_title");
         String travel_img = intent.getStringExtra("travel_img");
+        travel_id = intent.getStringExtra("travel_id");
         Log.d("값 확인","제목 : " +travel_title + " 이미지 uri : " + travel_img);
 
         TextView title = (TextView) findViewById(R.id.title);
@@ -92,6 +102,19 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // 데이터 들고오기 oncreate에 선언 mExampleList = new ArrayList<>(); 지우고
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("travel"+travel_id, null);
+        Type type = new TypeToken<ArrayList<Note>>() {}.getType();
+        arrayList = gson.fromJson(json, type);
+
+        if (arrayList == null) { // 비어있으면 객체 선언
+            arrayList = new ArrayList<>();
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -111,6 +134,14 @@ public class HomeActivity extends AppCompatActivity {
                 Note mainData = new Note(a,b,c,e,d);
                 arrayList.add(mainData); // 내용 추가
                 noteAdapter.notifyDataSetChanged(); // 새로고침해 반영
+
+                SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Gson gson1 = new Gson();
+                String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+                editor.putString("travel"+travel_id, json);
+                editor.apply();
+
 
             }
         }
