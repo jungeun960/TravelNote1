@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -104,6 +106,8 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
             this.likecount = (TextView)itemView.findViewById(R.id.likecount);
 
             itemView.setOnCreateContextMenuListener(this);
+
+
             //2. OnCreateContextMenuListener 리스너를 현재 클래스에서 구현한다고 설정해둡니다.
         }
 
@@ -276,9 +280,21 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
             // 아이템 클릭시
             @Override
             public void onClick(View v) {
+                Log.i("메인", "클릭"+position);
+                Share share = arrayList.get(position);
+                //Toast.makeText(getApplicationContext(),
+                //        share.getTv_name()+share.getTv_title()+share.getTv_cotent(), Toast.LENGTH_LONG).show();
+                // 인텐트 ResultActivity로 값 넘기기
+                Intent intent = new Intent(mContext, SharedResultActivity.class);
+                intent.putExtra("name", share.getTv_name());
+                intent.putExtra( "title", share.getTv_title());
+                intent.putExtra("content", share.getTv_cotent());
+                intent.putExtra("profile",share.getIv_profile());
+                intent.putExtra("date",share.getDate());
+                mContext.startActivity(intent);
 //                String curName = holder.tv_name.getText().toString();
 //                Toast.makeText(v.getContext(),curName,Toast.LENGTH_SHORT).show(); // 토스트 메세지 보내기
-               // mListener.onItemClick(v, position) ;
+//                mListener.onItemClick(v, position) ;
             }
         });
 
