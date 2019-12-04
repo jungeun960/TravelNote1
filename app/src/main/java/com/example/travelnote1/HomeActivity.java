@@ -92,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString(travel_id, null);
+        String json = sharedPreferences.getString("daily"+travel_id, null);
         Type type = new TypeToken<ArrayList<Note>>() {}.getType();
         arrayList = gson.fromJson(json, type);
 
@@ -117,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 Log.e("LOG", "날짜 :"+a +"제목: "+ b + "위치: " + c + "내용: "+d +"이미지 uri: "+e );
 
-                Note mainData = new Note(a,b,c,e,d);
+                Note mainData = new Note(a,b,c,e,d,travel_id);
                 arrayList.add(mainData); // 내용 추가
                 noteAdapter.notifyDataSetChanged(); // 새로고침해 반영
 
@@ -125,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Gson gson = new Gson();
                 String json = gson.toJson(arrayList); // 리스트 객체를 json으로 변형
-                editor.putString(travel_id, json);
+                editor.putString("daily"+travel_id, json);
                 editor.apply();
 
 

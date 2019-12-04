@@ -6,13 +6,18 @@ public class Note {
     private String tv_location;
     private String imageView6;
     private String tv_note;
+    private String note_id;
 
-    public Note(String tv_day, String tv_title, String tv_location, String imageView6, String tv_note) {
+    public Note() {
+    }
+
+    public Note(String tv_day, String tv_title, String tv_location, String imageView6, String tv_note, String note_id) {
         this.tv_day = tv_day;
         this.tv_title = tv_title;
         this.tv_location = tv_location;
         this.imageView6 = imageView6;
         this.tv_note = tv_note;
+        this.note_id = note_id;
     }
 
     public String getTv_day() {
@@ -53,5 +58,13 @@ public class Note {
 
     public void setTv_note(String tv_note) {
         this.tv_note = tv_note;
+    }
+
+    public String getNote_id() {
+        return note_id;
+    }
+
+    public void setNote_id(String note_id) {
+        this.note_id = note_id;
     }
 }

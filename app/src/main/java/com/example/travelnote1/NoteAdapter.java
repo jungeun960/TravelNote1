@@ -93,8 +93,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.CustomViewHold
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                remove(holder.getAdapterPosition()); // 제거
+                                String a = arrayList.get(holder.getAdapterPosition()).getNote_id();
+                                String b = "daily"+a;
+                                arrayList.remove(holder.getAdapterPosition()); // arrayList에서 제거
+                                notifyItemRemoved(holder.getAdapterPosition());// 새로고침해 지워줌
+                                notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
                                 Toast.makeText(mContext,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences sharedPreferences = mContext.getSharedPreferences("shared", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                Gson gson = new Gson();
+                                String json = gson.toJson(arrayList); // 리스트 객체를 json으로 변형
+                                editor.putString(b, json);
+                                editor.apply();
+
                             }
                         });
                 builder.setNegativeButton("아니오",
@@ -121,16 +133,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.CustomViewHold
     public void remove(int position){
         // 삭제
         try{
-            arrayList.remove(position); // arrayList에서 제거
-            notifyItemRemoved(position);// 새로고침해 지워줌
 
-            SharedPreferences sharedPreferences = activity.getSharedPreferences("shared", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            Gson gson = new Gson();
-            String json = gson.toJson(arrayList); // 리스트 객체를 json으로 변형
-
-            //editor.putString(list_name, json);
-            editor.apply();
         }catch (IndexOutOfBoundsException ex){
             ex.printStackTrace();
         }
