@@ -37,6 +37,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Intent intent = getIntent();
+        String travel_title = intent.getStringExtra("travel_title");
+        String travel_img = intent.getStringExtra("travel_img");
+        travel_id = intent.getStringExtra("travel_id");
+        Log.d("값 확인","제목 : " +travel_title + " 이미지 uri : " + travel_img);
+
         loadData();
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
@@ -47,27 +53,8 @@ public class HomeActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        //arrayList = new ArrayList<>();
-
         noteAdapter = new NoteAdapter(this, arrayList);
         recyclerView.setAdapter(noteAdapter);
-
-//        Note mainData = new Note("DAY-1 2019.01.10","스위스 페러글라이딩", "스위스 인터라켄",
-//                "file://com.android.providers.media.documents/document/image%3A210692","페러글라이딩 존잼이다ㅠ");
-//        Note mainData1 = new Note("DAY-2 2019.01.11","비온다ㅠㅠ", "루체른",
-//                "content://com.android.providers.media.documents/document/image%3A210693","비와서 숙소에만 있는다ㅠㅠ 근데 숙소가 넘 이뿜..");
-//        arrayList.add(mainData); // 내용 추가
-//        arrayList.add(mainData1);
-//        noteAdapter.notifyDataSetChanged();
-        //Glide.with(this).load(R.drawable.me).into(img);
-
-
-        Intent intent = getIntent();
-        String travel_title = intent.getStringExtra("travel_title");
-        String travel_img = intent.getStringExtra("travel_img");
-        travel_id = intent.getStringExtra("travel_id");
-        Log.d("값 확인","제목 : " +travel_title + " 이미지 uri : " + travel_img);
 
         TextView title = (TextView) findViewById(R.id.title);
         ImageView img = (ImageView)findViewById(R.id.imageView2);
@@ -77,7 +64,6 @@ public class HomeActivity extends AppCompatActivity {
         Picasso.with(this).load(travel_img).into(img);
         //Glide.with(this).load(R.drawable.me).into(img);
         //Glide를 이용하여 이미지뷰에 url에 있는 이미지를 세팅해줌
-
 
 
         BootstrapButton button = (BootstrapButton)findViewById(R.id.button2);
@@ -106,7 +92,7 @@ public class HomeActivity extends AppCompatActivity {
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("travel"+travel_id, null);
+        String json = sharedPreferences.getString(travel_id, null);
         Type type = new TypeToken<ArrayList<Note>>() {}.getType();
         arrayList = gson.fromJson(json, type);
 
@@ -137,9 +123,9 @@ public class HomeActivity extends AppCompatActivity {
 
                 SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                Gson gson1 = new Gson();
-                String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
-                editor.putString("travel"+travel_id, json);
+                Gson gson = new Gson();
+                String json = gson.toJson(arrayList); // 리스트 객체를 json으로 변형
+                editor.putString(travel_id, json);
                 editor.apply();
 
 
