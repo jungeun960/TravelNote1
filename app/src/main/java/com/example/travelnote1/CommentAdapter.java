@@ -21,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -80,29 +82,39 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomVi
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         // 다이얼로그를 보여주기 위해 edit_box.xml 파일을 사용합니다.
                         View view = LayoutInflater.from(mContext)
-                                .inflate(R.layout.activity_sharedmodify, null, false);
+                                .inflate(R.layout.activity_comment_edit, null, false);
                         builder.setView(view);
-                        final Button btn_modify = (Button) view.findViewById(R.id.btn_modify);
-                        final EditText et_title = (EditText) view.findViewById(R.id.et_title);
-                        final EditText et_context = (EditText) view.findViewById(R.id.et_context);
+                        final BootstrapButton btn_modify = (BootstrapButton) view.findViewById(R.id.btn_modify);
+                        final BootstrapEditText et_comment = (BootstrapEditText) view.findViewById(R.id.et_comment);
 
                         // 6. 해당 줄에 입력되어 있던 데이터를 불러와서 다이얼로그에 보여줍니다.
-                        et_title.setText(arrayList.get(getAdapterPosition()).getTv_name());
-                        et_context.setText(arrayList.get(getAdapterPosition()).getTv_comment());
+                        et_comment.setText(arrayList.get(getAdapterPosition()).getTv_comment());
 
                         final AlertDialog dialog = builder.create();
                         btn_modify.setOnClickListener(new View.OnClickListener() {
                             // 7. 수정 버튼을 클릭하면 현재 UI에 입력되어 있는 내용으로
                             public void onClick(View v) {
-                                String strtitle = et_title.getText().toString();
-                                String strcontext = et_context.getText().toString();
 
-                                Comment comment = new Comment("file:///com.android.providers.media.documents/document/image%3A210690","dd","dd","");
+                                String tv_comment = et_comment.getText().toString();
+
+                                String iv_profile = arrayList.get(getAdapterPosition()).getIv_profile();
+                                String tv_name = arrayList.get(getAdapterPosition()).getTv_name();
+                                String id = arrayList.get(getAdapterPosition()).getId();
+
+                                Comment comment = new Comment(iv_profile,tv_name,tv_comment,id);
 
                                 // 8. ListArray에 있는 데이터를 변경하고
                                 arrayList.set(getAdapterPosition(), comment);
                                 // 9. 어댑터에서 RecyclerView에 반영하도록 합니다.
                                 notifyItemChanged(getAdapterPosition());
+
+                                SharedPreferences sharedPreferences = mContext.getSharedPreferences("shared", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                Gson gson = new Gson();
+                                String json = gson.toJson(arrayList); // 리스트 객체를 json으로 변형
+                                editor.putString(id, json);
+                                editor.apply();
+
                                 dialog.dismiss();
                             }
                         });
