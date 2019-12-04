@@ -131,7 +131,7 @@ public class SharedResultActivity extends AppCompatActivity {
                     String name = person.getEt_name();
 
                     String comment = add_comment.getText().toString();
-                    Comment new_commment = new Comment(image, name, comment);
+                    Comment new_commment = new Comment(image, name, comment,date);
                     arrayList.add(new_commment);
                     commentAdapter.notifyDataSetChanged();
                     add_comment.setText(null);

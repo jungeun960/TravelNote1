@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -45,7 +46,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
     Activity activity;
 
     private BootstrapButton btn_modify;
-    private ImageView travel_image;
+    private ImageView travel_img;
     private BootstrapEditText travel_title;
 
     private static final String TAG = "Photo";
@@ -102,17 +103,17 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
                                 .inflate(R.layout.activity_travel_modify, null, false);
                         builder.setView(view);
                         btn_modify = (BootstrapButton) view.findViewById(R.id.btn_travel);
-                        travel_image = (ImageView) view.findViewById(R.id.travel_image);
+                        travel_img = (ImageView) view.findViewById(R.id.travel_image);
                         travel_title = (BootstrapEditText) view.findViewById(R.id.travel_title);
 
                         // 6. 해당 줄에 입력되어 있던 데이터를 불러와서 다이얼로그에 보여줍니다.
                         travel_title.setText(arrayList.get(getAdapterPosition()).getTravel_name());
-                        Picasso.with(activity).load(arrayList.get(getAdapterPosition()).getImageUrl()).into(travel_image);
+                        Picasso.with(activity).load(arrayList.get(getAdapterPosition()).getImageUrl()).into(travel_img);
 
                         tedPermission();
 
                         // 갤러리 진입
-                        travel_image.setOnClickListener(new View.OnClickListener(){
+                        travel_img.setOnClickListener(new View.OnClickListener(){
                             @Override
                             public void onClick(View v) {
                                 // 권한 허용에 동의하지 않았을 경우 토스트를 띄웁니다.
@@ -120,7 +121,6 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
                                     Intent intent = new Intent(Intent.ACTION_PICK);
                                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                                     activity.startActivityForResult(intent, PICK_FROM_ALBUM);
-                                    //goToAlbum();
                                 }
                                 //else
                                 //Toast.makeText(view.getContext(), getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
@@ -278,41 +278,11 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
     }
 
 
-
-
-
-
     @Override
     public int getItemCount() {
         // 전체 아이템 갯수 리턴.
         return (null != arrayList ? arrayList.size() : 0);
     }
-
-    public void remove(int position){
-        // 삭제
-        try{
-            arrayList.remove(position); // arrayList에서 제거
-            notifyItemRemoved(position);// 새로고침해 지워줌
-
-            SharedPreferences sharedPreferences = activity.getSharedPreferences("shared", MODE_PRIVATE);
-
-            // 현재 회원의 email 불러오기
-            String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
-            String list_name = Useremail+"list";
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            Gson gson1 = new Gson();
-            String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
-
-            editor.putString(list_name, json);
-            editor.apply();
-
-        }catch (IndexOutOfBoundsException ex){
-            ex.printStackTrace();
-        }
-    }
-
-
 
     @SuppressLint("MissingSuperCall")
     //@Override
@@ -356,7 +326,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
                 }
             }
             //ImageView imageView = findViewById(R.id.travel_image);
-            Picasso.with(activity).load(image_uri).into(travel_image);
+            Picasso.with(activity).load(image_uri).into(travel_img);
             Log.e(TAG, "tempFile : " + tempFile);
             Log.e(TAG, "tempFile.getAbsolutePath() : " + tempFile.getAbsolutePath());
             tempFile = null;
@@ -386,6 +356,5 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
                 .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .check();
     }
-
 
 }

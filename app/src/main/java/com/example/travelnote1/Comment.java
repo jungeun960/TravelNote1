@@ -4,14 +4,16 @@ public class Comment {
     private String iv_profile; //imageView int 임
     private String tv_name;
     private String tv_comment;
+    private String id;
 
-    public Comment(String iv_profile, String tv_name, String tv_comment) {
+    public Comment() {
+    }
+
+    public Comment(String iv_profile, String tv_name, String tv_comment, String id) {
         this.iv_profile = iv_profile;
         this.tv_name = tv_name;
         this.tv_comment = tv_comment;
-    }
-
-    public Comment() {
+        this.id = id;
     }
 
     public String getIv_profile() {
@@ -36,5 +38,13 @@ public class Comment {
 
     public void setTv_comment(String tv_comment) {
         this.tv_comment = tv_comment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

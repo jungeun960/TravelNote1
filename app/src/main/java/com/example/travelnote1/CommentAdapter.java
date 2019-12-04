@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,9 +21,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomViewHolder> {
     // 어뎁터 구현 시 필수 생성 메서드
@@ -92,7 +97,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomVi
                                 String strtitle = et_title.getText().toString();
                                 String strcontext = et_context.getText().toString();
 
-                                Comment comment = new Comment("file:///com.android.providers.media.documents/document/image%3A210690","dd","dd");
+                                Comment comment = new Comment("file:///com.android.providers.media.documents/document/image%3A210690","dd","dd","");
 
                                 // 8. ListArray에 있는 데이터를 변경하고
                                 arrayList.set(getAdapterPosition(), comment);
@@ -112,12 +117,22 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CustomVi
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //remove(getAdapterPosition()); // 제거
+                                        String id = arrayList.get(getAdapterPosition()).getId();
+                                        Log.e("id",id);
                                         arrayList.remove(getAdapterPosition());
                                         // 7. 어댑터에서 RecyclerView에 반영하도록 합니다.
                                         // 6. ArratList에서 해당 데이터를 삭제하고
                                         notifyItemRemoved(getAdapterPosition());
                                         notifyItemRangeChanged(getAdapterPosition(), arrayList.size());
                                         Toast.makeText(mContext,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+
+                                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("shared", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        Gson gson1 = new Gson();
+                                        String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+                                        editor.putString(id, json);
+                                        editor.apply();
+
                                     }
                                 });
                         builder1.setNegativeButton("아니오",
