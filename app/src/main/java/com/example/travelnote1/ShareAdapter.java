@@ -25,7 +25,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -135,9 +137,9 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
                         View view = LayoutInflater.from(mContext)
                                 .inflate(R.layout.activity_sharedmodify, null, false);
                         builder.setView(view);
-                        final Button btn_modify = (Button) view.findViewById(R.id.btn_modify);
-                        final EditText et_title = (EditText) view.findViewById(R.id.et_title);
-                        final EditText et_context = (EditText) view.findViewById(R.id.et_context);
+                        final BootstrapButton btn_modify = (BootstrapButton) view.findViewById(R.id.btn_modify);
+                        final BootstrapEditText et_title = (BootstrapEditText) view.findViewById(R.id.et_title);
+                        final BootstrapEditText et_context = (BootstrapEditText) view.findViewById(R.id.et_context);
 
                         // 6. 해당 줄에 입력되어 있던 데이터를 불러와서 다이얼로그에 보여줍니다.
                         et_title.setText(arrayList.get(getAdapterPosition()).getTv_title());

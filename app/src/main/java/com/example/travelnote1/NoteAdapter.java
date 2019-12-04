@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.CustomViewHolder> {
 
@@ -119,6 +123,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.CustomViewHold
         try{
             arrayList.remove(position); // arrayList에서 제거
             notifyItemRemoved(position);// 새로고침해 지워줌
+
+            SharedPreferences sharedPreferences = activity.getSharedPreferences("shared", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(arrayList); // 리스트 객체를 json으로 변형
+
+            //editor.putString(list_name, json);
+            editor.apply();
         }catch (IndexOutOfBoundsException ex){
             ex.printStackTrace();
         }
