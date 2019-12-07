@@ -334,15 +334,5 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.CustomViewHo
         return (null != arrayList ? arrayList.size() : 0);
     }
 
-//    public void remove(int position){
-//        // 삭제
-//        try{
-//            arrayList.remove(position); // arrayList에서 제거
-//            notifyItemRemoved(position);// 새로고침해 지워줌
-//        }catch (IndexOutOfBoundsException ex){
-//            ex.printStackTrace();
-//        }
-//    }
-
 
 }
