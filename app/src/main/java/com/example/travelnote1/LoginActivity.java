@@ -2,26 +2,112 @@ package com.example.travelnote1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
     private Gson gson;
 
+    private Context mContext;
+    private LoginButton btn_facebook_login;
+    //private Button btn_custom_login;
+    //private LoginCallback mLoginCallback;
+    private CallbackManager mCallbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        mContext = getApplicationContext();
+        mCallbackManager = CallbackManager.Factory.create();
+        btn_facebook_login = (LoginButton) findViewById(R.id.btn_facebook_login);
+
+        LoginManager.getInstance().registerCallback(mCallbackManager,
+                new FacebookCallback<LoginResult>() {
+                    // 로그인 성공 시 호출 됩니다. Access Token 발급 성공.
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+
+                        Arrays.asList("public_profile", "email");
+                        // App code
+                        //Person 클래스에 회원정보 담기
+                        Log.e("Callback :: ", "onSuccess");
+                        AccessToken token = loginResult.getAccessToken();
+
+                        String email = "wjddms905@nate.com";
+                        Person person = new Person();
+                        person.setEt_email(email);
+                        person.setEt_name("최정은");
+                        person.setEt_pass("");
+                        person.setPhoto("file:///storage/sdcard1/Gallery/new/no.PNG");
+                        // Gson 인스턴스 생성
+                        Gson gson;
+                        gson = new GsonBuilder().create();
+                        // JSON 으로 변환
+                        String strContact = gson.toJson(person, Person.class);
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+                        SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        // 이메일을 key로 설정
+                        editor.putString(email, strContact); // JSON으로 변환한 객체를 저장한다.
+                        editor.putString("CurrentUser",email);
+                        editor.commit(); //완료한다.
+
+                        Intent intent = new Intent(getApplicationContext(),LodingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    // 로그인 창을 닫을 경우, 호출됩니다.
+                    @Override
+                    public void onCancel() {
+                        // App code
+                        Log.e("Callback :: ", "onCancel");
+                    }
+
+                    // 로그인 실패 시에 호출됩니다.
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                        Log.e("Callback :: ", "onError");
+                    }
+
+                });
+
+//        mLoginCallback = new LoginCallback();
+//        btn_facebook_login.setReadPermissions(Arrays.asList("public_profile", "email"));
+//        btn_facebook_login.registerCallback(mCallbackManager, mLoginCallback);
 
         final BootstrapEditText et_email =(BootstrapEditText)findViewById(R.id.et_email);
         final BootstrapEditText et_password = (BootstrapEditText)findViewById(R.id.et_password);
@@ -97,4 +183,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

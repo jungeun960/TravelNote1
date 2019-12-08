@@ -1,14 +1,19 @@
 package com.example.travelnote1;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,9 +25,12 @@ import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.security.MessageDigest;
+import android.content.pm.Signature;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private TextView tv_name;
+    private Context mContext;
 
     private ImageView ad;
     int[] imageArray = {R.drawable.ad1, R.drawable.ad2, R.drawable.ad3, R.drawable.ad4, R.drawable.ad5,R.drawable.ad6};
@@ -49,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loadData();
+
+        mContext = getApplicationContext();
+        getHashKey(mContext);
 
         // 회원 닉네임 불러오기
         tv_name = (TextView)findViewById(R.id.tv_name);
@@ -226,6 +238,33 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent5);
             }
         });
+    }
+
+    @Nullable
+
+    public static String getHashKey(Context context) {
+        final String TAG = "KeyHash";
+        String keyHash = null;
+        try {
+            PackageInfo info =
+                    context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+
+            for (Signature signature : info.signatures) {
+                MessageDigest md;
+                md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                keyHash = new String(Base64.encode(md.digest(), 0));
+                Log.d(TAG, keyHash);
+            }
+        } catch (Exception e) {
+            Log.e("name not found", e.toString());
+        }
+
+        if (keyHash != null) {
+            return keyHash;
+        } else {
+            return null;
+        }
     }
 
     // 광고이미지

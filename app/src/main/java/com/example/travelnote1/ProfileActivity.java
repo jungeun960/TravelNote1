@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
+import com.facebook.login.LoginManager;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -86,6 +87,9 @@ public class ProfileActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.remove("CurrentUser");
                 editor.commit();
+
+                //페이스북 로그아웃 시
+                LoginManager.getInstance().logOut();
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }

@@ -37,4 +37,7 @@ dependencies {
     implementation files('libs/jsoup-1.12.1.jar')
     implementation 'com.airbnb.android:lottie:3.2.2'
 
+    // 페이스북 SDK
+    implementation 'com.facebook.android:facebook-login:[5,6)'
+
 }
