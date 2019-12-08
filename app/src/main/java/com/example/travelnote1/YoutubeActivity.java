@@ -72,6 +72,7 @@ public class YoutubeActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "링크를 입력해주세요.",Toast.LENGTH_SHORT).show();
                 }else {
                     String link_full = "https://www.youtube.com/embed/" + link;
+                    //String link_full =link;
                     arrayList.add(new DataSetList(link_full));
                     youtubeAdapter.notifyItemInserted(arrayList.size());
                     et_link.setText(null);

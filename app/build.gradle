@@ -39,5 +39,6 @@ dependencies {
 
     // 페이스북 SDK
     implementation 'com.facebook.android:facebook-login:[5,6)'
+    implementation files('libs\\YouTubeAndroidPlayerApi.jar')
 
 }
