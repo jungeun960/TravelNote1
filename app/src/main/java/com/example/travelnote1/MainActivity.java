@@ -2,6 +2,8 @@ package com.example.travelnote1;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,7 +12,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
@@ -20,6 +26,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
@@ -28,9 +40,14 @@ import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.security.MessageDigest;
 import android.content.pm.Signature;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private TextView tv_name;
     private Context mContext;
+
+    //날짜
+    TextView t1_temp, t4_data;
+    ImageView imageView;
+    String my_longitude;
+    String my_latitude;
+    private String imgURL;
 
     private ImageView ad;
     int[] imageArray = {R.drawable.ad1, R.drawable.ad2, R.drawable.ad3, R.drawable.ad4, R.drawable.ad5,R.drawable.ad6};
@@ -59,8 +83,42 @@ public class MainActivity extends AppCompatActivity {
 
         loadData();
 
+        // 해쉬키값 알아내기
         mContext = getApplicationContext();
         getHashKey(mContext);
+
+        t1_temp = (TextView)findViewById(R.id.textView8);
+        t4_data = (TextView)findViewById(R.id.textView9);
+        imageView = (ImageView)findViewById(R.id.imageView4);
+
+        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions( MainActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
+                    0 );
+        }
+        else{
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            String provider = location.getProvider();
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            double altitude = location.getAltitude();
+            my_longitude = Double.toString(longitude);
+            my_latitude= Double.toString(latitude);
+
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    10000,
+                    1,
+                    gpsLocationListener);
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    1000,
+                    1,
+                    gpsLocationListener);
+        }
+
+        find_weather();
 
         // 회원 닉네임 불러오기
         tv_name = (TextView)findViewById(R.id.tv_name);
@@ -240,8 +298,78 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Nullable
+    final LocationListener gpsLocationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
 
+            String provider = location.getProvider();
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            double altitude = location.getAltitude();
+
+
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
+    };
+
+
+
+    private void find_weather() {
+        //String url = "http://api.openweathermap.org/data/2.5/weather?q=seoul&appid=449090d450442665f23f613cc903f504&units=metric";
+        String url = "http://api.openweathermap.org/data/2.5/weather?lat=" + my_latitude + "&lon="+ my_longitude+
+                "&appid=449090d450442665f23f613cc903f504&units=metric";
+        Log.e("url",url);
+
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject main_object = response.getJSONObject("main");
+                    JSONArray array = response.getJSONArray("weather");
+                    JSONObject object = array.getJSONObject(0);
+                    String temp = String.valueOf(main_object.getDouble("temp"));
+                    String description = object.getString("description");
+                    String city = response.getString("name");
+                    String icon = object.getString("icon");
+                    Log.e("icon",icon);
+                    imgURL = "http://openweathermap.org/img/w/" + icon + ".png";
+                    Log.e("icon url",imgURL);
+
+                    t1_temp.setText(temp);
+                    Picasso.with(getApplicationContext()).load(Uri.parse(imgURL)).into(imageView);
+
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEEE-MM-dd");
+                    String formatte_date = sdf.format(calendar.getTime());
+
+                    t4_data.setText(formatte_date);
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            private void into(ImageView imageView) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(jor);
+
+    }
+
+    @Nullable
     public static String getHashKey(Context context) {
         final String TAG = "KeyHash";
         String keyHash = null;
