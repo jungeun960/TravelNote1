@@ -50,16 +50,20 @@ import java.util.Locale;
 
 public class LocationActivity extends AppCompatActivity
         implements OnMapReadyCallback,
-        ActivityCompat.OnRequestPermissionsResultCallback{
+        ActivityCompat.OnRequestPermissionsResultCallback,
+        GoogleMap.OnMarkerClickListener{
+
+    private String result_location;
 
     private boolean button_check = false;
     private GoogleMap mMap;
     private Geocoder geocoder;
     private Marker currentMarker = null;
 
+
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
+    private static final int UPDATE_INTERVAL_MS = 2000;  // 2초
     private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
 
     // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
@@ -101,9 +105,13 @@ public class LocationActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),NoteActivity.class);
+                intent.putExtra("location",result_location);
+
                 startActivity(intent);
+                finish();
             }
         });
+
 
 
         locationRequest = new LocationRequest()
@@ -134,6 +142,9 @@ public class LocationActivity extends AppCompatActivity
         mMap = googleMap;
         geocoder = new Geocoder(this);
 
+        // 마커 클릭에 대하 이벤트 처리
+        mMap.setOnMarkerClickListener(this);
+
         // 맵 터치 이벤트 구현 //
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
             @Override
@@ -153,7 +164,7 @@ public class LocationActivity extends AppCompatActivity
         });
         ////////////////////
 
-        // 버튼 이벤트
+        // 검색하기
         btn_search.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -182,12 +193,15 @@ public class LocationActivity extends AppCompatActivity
                 System.out.println(latitude);
                 System.out.println(longitude);
 
+                String markerSnippet = "위도:" + latitude
+                        + " 경도:" + longitude;
+
                 // 좌표(위도, 경도) 생성
                 LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
                 // 마커 생성
                 MarkerOptions mOptions2 = new MarkerOptions();
-                mOptions2.title("search result");
-                mOptions2.snippet(address);
+                mOptions2.title(address);
+                mOptions2.snippet(markerSnippet);
                 mOptions2.position(point);
                 // 마커 추가
                 mMap.addMarker(mOptions2);
@@ -252,6 +266,13 @@ public class LocationActivity extends AppCompatActivity
                 Log.d( TAG, "onMapClick :");
             }
         });
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker){
+        Toast.makeText(this,marker.getTitle(),Toast.LENGTH_SHORT).show();
+        result_location = marker.getTitle();
+        return true;
     }
 
     LocationCallback locationCallback = new LocationCallback() {

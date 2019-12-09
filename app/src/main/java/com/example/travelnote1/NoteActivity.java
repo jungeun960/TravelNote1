@@ -59,6 +59,10 @@ public class NoteActivity extends AppCompatActivity {
         Note_note = findViewById(R.id.Note_note);
         btn_location = findViewById(R.id.btn_location);
 
+        Intent intent = getIntent();
+        Note_location.setText(intent.getStringExtra("location"));
+        //Log.d("값 확인","제목 : " +location + " 이미지 uri : " + travel_img);
+
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
