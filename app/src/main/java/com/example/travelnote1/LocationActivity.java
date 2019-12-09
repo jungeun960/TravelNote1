@@ -8,6 +8,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +32,7 @@ import android.location.LocationManager;
 import android.os.Looper;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.LocationCallback;
@@ -49,7 +52,9 @@ public class LocationActivity extends AppCompatActivity
         implements OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback{
 
+    private boolean button_check = false;
     private GoogleMap mMap;
+    private Geocoder geocoder;
     private Marker currentMarker = null;
 
     private static final String TAG = "googlemap_example";
@@ -74,6 +79,10 @@ public class LocationActivity extends AppCompatActivity
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     // (참고로 Toast에서는 Context가 필요했습니다.)
 
+    private BootstrapEditText location_title;
+    private BootstrapButton btn_search;
+    private BootstrapButton btn_location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +93,18 @@ public class LocationActivity extends AppCompatActivity
         setContentView(R.layout.activity_location);
 
         mLayout = findViewById(R.id.layout_main);
+        location_title = (BootstrapEditText)findViewById(R.id.location_title);
+        btn_search = (BootstrapButton)findViewById(R.id.btn_search);
+        btn_location = (BootstrapButton)findViewById(R.id.btn_location);
+
+        btn_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),NoteActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -111,19 +132,72 @@ public class LocationActivity extends AppCompatActivity
         Log.d(TAG, "onMapReady :");
 
         mMap = googleMap;
+        geocoder = new Geocoder(this);
 
-// 서울 띄어보기
-//        LatLng SEOUL = new LatLng(37.56, 126.97);
-//
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(SEOUL); // 위치
-//        markerOptions.title("서울"); //title
-//        markerOptions.snippet("한국의 수도"); // 설명
-//        mMap.addMarker(markerOptions); // GoogleMap 객체에 추가
-//
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL)); //  카메라를 지정한 경도, 위도로 이동
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-//        // 지정한 단계로 카메라 줌을 조정합니다.  1 단계로 지정하면 세계지도 수준으로 보이고 숫자가 커질수록 상세지도가 보입니다.
+        // 맵 터치 이벤트 구현 //
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener(){
+            @Override
+            public void onMapClick(LatLng point) {
+                MarkerOptions mOptions = new MarkerOptions();
+                // 마커 타이틀
+                mOptions.title("마커 좌표");
+                Double latitude = point.latitude; // 위도
+                Double longitude = point.longitude; // 경도
+                // 마커의 스니펫(간단한 텍스트) 설정
+                mOptions.snippet(latitude.toString() + ", " + longitude.toString());
+                // LatLng: 위도 경도 쌍을 나타냄
+                mOptions.position(new LatLng(latitude, longitude));
+                // 마커(핀) 추가
+                googleMap.addMarker(mOptions);
+            }
+        });
+        ////////////////////
+
+        // 버튼 이벤트
+        btn_search.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                button_check = true;
+
+                String str=location_title.getText().toString();
+                List<Address> addressList = null;
+                try {
+                    // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
+                    addressList = geocoder.getFromLocationName(
+                            str, // 주소
+                            10); // 최대 검색 결과 개수
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(addressList.get(0).toString());
+                // 콤마를 기준으로 split
+                String []splitStr = addressList.get(0).toString().split(",");
+                String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length() - 2); // 주소
+                System.out.println(address);
+
+                String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
+                String longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도
+                System.out.println(latitude);
+                System.out.println(longitude);
+
+                // 좌표(위도, 경도) 생성
+                LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+                // 마커 생성
+                MarkerOptions mOptions2 = new MarkerOptions();
+                mOptions2.title("search result");
+                mOptions2.snippet(address);
+                mOptions2.position(point);
+                // 마커 추가
+                mMap.addMarker(mOptions2);
+                // 해당 좌표로 화면 줌
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point,15));
+            }
+        });
+        ////////////////////
+
+        geocoder = new Geocoder(this);
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
@@ -198,12 +272,18 @@ public class LocationActivity extends AppCompatActivity
                 String markerSnippet = "위도:" + String.valueOf(location.getLatitude())
                         + " 경도:" + String.valueOf(location.getLongitude());
 
+                //location_title.setText(markerTitle);
+
+
+
                 Log.d(TAG, "onLocationResult : " + markerSnippet);
 
-                //현재 위치에 마커 생성하고 이동
-                setCurrentLocation(location, markerTitle, markerSnippet);
+                if(button_check == false){
+                    //현재 위치에 마커 생성하고 이동
+                    setCurrentLocation(location, markerTitle, markerSnippet);
 
-                mCurrentLocatiion = location;
+                    mCurrentLocatiion = location;
+                }
             }
         }
     };
