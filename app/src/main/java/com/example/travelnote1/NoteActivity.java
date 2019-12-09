@@ -36,6 +36,7 @@ public class NoteActivity extends AppCompatActivity {
     private BootstrapEditText Note_title;
     private BootstrapEditText Note_location;
     private BootstrapEditText Note_note;
+    private BootstrapButton btn_location;
 
     private static final String TAG = "Photo";
     private Boolean isPermission = true;
@@ -56,6 +57,15 @@ public class NoteActivity extends AppCompatActivity {
         Note_title = findViewById(R.id.Note_title);
         Note_location = findViewById(R.id.Note_location);
         Note_note = findViewById(R.id.Note_note);
+        btn_location = findViewById(R.id.btn_location);
+
+        btn_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LocationActivity.class);
+                startActivity(intent);
+            }
+        });
 
         BootstrapButton button = (BootstrapButton)findViewById(R.id.btn_travel);
 

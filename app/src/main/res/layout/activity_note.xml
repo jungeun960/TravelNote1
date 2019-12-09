@@ -36,19 +36,35 @@
         android:inputType="textPersonName" />
 
 
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/Note_location"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:bootstrapBrand="info"
-        android:gravity="start|top"
-        android:ems="10"
-        android:hint="위치를 입력해주세요"
+        android:orientation="horizontal"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:inputType="textPersonName"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp">
 
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/Note_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="위치를 입력해주세요"
+            android:inputType="textPersonName"
+            android:layout_marginRight="10dp"
+            app:bootstrapBrand="info" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="위치 등록"
+            app:bootstrapBrand="primary"
+            app:buttonMode="regular"
+            app:roundedCorners="true"
+            app:showOutline="true"/>
+    </LinearLayout>
 
 
     <ImageView
