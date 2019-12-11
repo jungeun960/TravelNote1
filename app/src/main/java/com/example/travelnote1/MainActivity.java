@@ -194,6 +194,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("travel_title", travel.getTravel_name());
                 intent.putExtra( "travel_img", travel.getImageUrl());
                 intent.putExtra("travel_id",travel.getId());
+                intent.putExtra("travel_date",travel.getTravel_date());
+                intent.putExtra("position",position);
+                Log.e("dd",travel.getTravel_name()+travel.getImageUrl()+travel.getId()+travel.getTravel_date()+position);
 
                 startActivity(intent);
             }
@@ -210,6 +213,39 @@ public class MainActivity extends AppCompatActivity {
         String title = intent.getStringExtra("title");
         String imageUri = intent.getStringExtra("imageUri");
         String date = intent.getStringExtra("date");
+
+        String edit_title = intent.getStringExtra("edit_title");
+        String edit_imageUri = intent.getStringExtra("edit_imageUri");
+        String edit_travel_id = intent.getStringExtra("edit_travel_id");
+        String edit_position = intent.getStringExtra("edit_position");
+        String edit_date = intent.getStringExtra("edit_date");
+
+        if(edit_title!=null&&edit_imageUri!=null&edit_travel_id!=null&&edit_date!=null){
+            Travel travel = new Travel(edit_imageUri,edit_title,edit_date,edit_travel_id);
+            int po;
+            if(edit_position==null){
+                po=0;
+            }else{
+                po = Integer.parseInt(edit_position);
+            }
+            arrayList.set(po, travel);
+            travelAdapter.notifyItemChanged(po);
+
+            // 현재 회원의 email 불러오기
+            String Useremail1 = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+
+            // 데이터 저장하기
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Gson gson1 = new Gson();
+            String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+
+            // 회원 email + list로 리사이클러뷰 key값 생성하기(자기만 보는 일기)
+            String list_name = Useremail1+"list";
+            editor.putString(list_name, json);
+            editor.apply();
+
+        }
+
         //Toast.makeText(getApplicationContext(), "제목은 "+title, Toast.LENGTH_SHORT).show();
         if(title!=null&&imageUri!=null&&date!=null) {
 

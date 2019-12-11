@@ -14,6 +14,7 @@ import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private String travel_id;
+    private BootstrapButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,30 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Intent intent = getIntent();
-        String travel_title = intent.getStringExtra("travel_title");
-        String travel_img = intent.getStringExtra("travel_img");
+        final String travel_title = intent.getStringExtra("travel_title");
+        final String travel_img = intent.getStringExtra("travel_img");
         travel_id = intent.getStringExtra("travel_id");
+        final String travel_date = intent.getStringExtra("travel_date");
+        final String position = intent.getStringExtra("position");
+        Log.e("id",travel_id);
         Log.d("값 확인","제목 : " +travel_title + " 이미지 uri : " + travel_img);
 
+        button = (BootstrapButton) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getBaseContext(), TravelmodifyActivity.class);
+                intent.putExtra("travel_title", travel_title);
+                intent.putExtra( "travel_img", travel_img);
+                intent.putExtra("travel_id",travel_id);
+                intent.putExtra("travel_date",travel_date);
+                intent.putExtra("position",position);
+
+                startActivity(intent);
+
+            }
+        });
         loadData();
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.

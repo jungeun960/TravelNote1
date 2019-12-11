@@ -83,9 +83,9 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             // 3. 컨텍스트 메뉴를 생성하고 메뉴 항목 선택시 호출되는 리스너를 등록해줍니다.
             // ID 1001, 1002로 어떤 메뉴를 선택했는지 리스너에서 구분하게 됩니다.
-            MenuItem Edit = menu.add(Menu.NONE, 1001, 1, "편집");
+            //MenuItem Edit = menu.add(Menu.NONE, 1001, 1, "편집");
             MenuItem Delete = menu.add(Menu.NONE, 1002, 2, "삭제");
-            Edit.setOnMenuItemClickListener(onEditMenu);
+            //Edit.setOnMenuItemClickListener(onEditMenu);
             Delete.setOnMenuItemClickListener(onEditMenu);
         }
 
@@ -248,32 +248,50 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
             }
         });
 
-//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//            //아이템 길게 클릭시
-//            @Override
-//            public boolean onLongClick(View v) {
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-//                builder.setTitle("삭제");
-//                builder.setMessage("글을 삭제하시겠습니까?");
-//                builder.setPositiveButton("예",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                remove(holder.getAdapterPosition()); // 제거
-//                                Toast.makeText(activity,"삭제되었습니다.",Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                builder.setNegativeButton("아니오",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                //Toast.makeText(activity,"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
-//                            }
-//                        });
-//                builder.show();
-//                return true;
-//
-//            }
-//        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            //아이템 길게 클릭시
+            @Override
+            public boolean onLongClick(View v) {
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+                builder1.setTitle("삭제");
+                builder1.setMessage("글을 삭제하시겠습니까?");
+                builder1.setPositiveButton("예",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //remove(getAdapterPosition()); // 제거
+                                arrayList.remove(holder.getAdapterPosition());
+                                // 7. 어댑터에서 RecyclerView에 반영하도록 합니다.
+                                // 6. ArratList에서 해당 데이터를 삭제하고
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
+                                Toast.makeText(activity, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences sharedPreferences = activity.getSharedPreferences("shared", MODE_PRIVATE);
+
+                                // 현재 회원의 email 불러오기
+                                String Useremail = sharedPreferences.getString("CurrentUser",""); // 꺼내오는 것이기 때문에 빈칸
+                                String list_name = Useremail+"list";
+
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                Gson gson1 = new Gson();
+                                String json = gson1.toJson(arrayList); // 리스트 객체를 json으로 변형
+
+                                editor.putString(list_name, json);
+                                editor.apply();
+                            }
+                        });
+                builder1.setNegativeButton("아니오",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Toast.makeText(activity,"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                builder1.show();
+                return true;
+
+            }
+        });
     }
 
 
