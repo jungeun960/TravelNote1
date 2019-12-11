@@ -66,8 +66,9 @@ public class NoteActivity extends AppCompatActivity {
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),LocationActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(getApplicationContext(),LocationActivity.class);
+                startActivityForResult(intent1, 1004);
+                //startActivity(intent1);
             }
         });
 
@@ -112,6 +113,13 @@ public class NoteActivity extends AppCompatActivity {
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1004){
+            String result = data.getStringExtra("location");
+            Log.e("NoteActivity : location", result);
+            Note_location.setText(result);
+        }
+
         if (resultCode != Activity.RESULT_OK) {
             Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -156,6 +164,7 @@ public class NoteActivity extends AppCompatActivity {
             Log.e(TAG, "tempFile.getAbsolutePath() : " + tempFile.getAbsolutePath());
             tempFile = null;
         }
+
     }
 
     /**

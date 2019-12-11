@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -90,6 +91,7 @@ public class LocationActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setResult(1004);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -104,10 +106,11 @@ public class LocationActivity extends AppCompatActivity
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),NoteActivity.class);
+                Intent intent = new Intent();
                 intent.putExtra("location",result_location);
-
-                startActivity(intent);
+                setResult(1004,intent);
+                Log.e("Location_location",result_location);
+                //startActivity(intent);
                 finish();
             }
         });

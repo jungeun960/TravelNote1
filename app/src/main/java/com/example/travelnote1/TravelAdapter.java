@@ -126,6 +126,8 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
                                 //Toast.makeText(view.getContext(), getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
                             }
                         });
+
+
                         final AlertDialog dialog = builder.create();
                         btn_modify.setOnClickListener(new View.OnClickListener() {
                             // 7. 수정 버튼을 클릭하면 현재 UI에 입력되어 있는 내용으로
@@ -199,9 +201,6 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
             }
         };
     }
-
-
-
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position) ;
@@ -358,3 +357,4 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.CustomView
     }
 
 }
+
