@@ -15,7 +15,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="9"
-        android:layout_margin="40dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,10 +73,17 @@
 
 
         <Button
+            android:id="@+id/btn_game"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/transparent"
+            android:text="미니게임 (다람이의 모험)" />
+
+        <Button
             android:id="@+id/btn_Clock"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginTop="60dp"
             android:background="@android:color/transparent"
             android:text="시간 모으기 " />
 
@@ -96,8 +106,8 @@
         <Button
             android:id="@+id/btn_Sms"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginBottom="40dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="30dp"
             android:background="@android:color/transparent"
             android:text="건의하기" />
 

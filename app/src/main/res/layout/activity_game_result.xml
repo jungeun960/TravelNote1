@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFFFf">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GAME OVER"
+            android:textSize="30dp"/>
+
+        <com.skydoves.medal.MedalLayout
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            app:direction = "right"
+            app:speed = "5000"
+            app:turn="1">
+
+            <ImageView
+                android:layout_width = "70dp"
+                android:layout_height = "100dp"
+                android:id="@+id/medal"/>
+
+        </com.skydoves.medal.MedalLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scoreLabel"
+            android:text="100"
+            android:textSize="25dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/highScoreLabel"
+            android:text="120"
+            android:textSize="25dp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GAMES PLAED"
+            android:id="@+id/gamesPlayedLabel"
+            android:textSize="25dp"/>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="tryAgain"
+            android:background="@drawable/ic_action_replay"
+            android:layout_marginTop="50dp"
+            />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="gohome"
+            android:background="@drawable/ic_action_home"
+            android:layout_marginTop="50dp"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

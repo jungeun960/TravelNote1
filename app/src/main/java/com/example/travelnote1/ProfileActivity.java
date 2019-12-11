@@ -58,12 +58,21 @@ public class ProfileActivity extends AppCompatActivity {
         Button button_web = (Button)findViewById(R.id.btn_Web);
         Button button_Sms = (Button)findViewById(R.id.btn_Sms);
         Button btn_Clock = (Button)findViewById(R.id.btn_Clock);
+        Button btn_find = (Button)findViewById(R.id.btn_game);
 
         btn_Clock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent3 = new Intent(getApplicationContext(), ClockMainActivity.class);
                 startActivity(intent3);
+            }
+        });
+
+        btn_find.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent4 = new Intent(getApplicationContext(), Game_startActivity.class);
+                startActivity(intent4);
             }
         });
 
