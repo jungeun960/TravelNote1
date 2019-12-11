@@ -16,8 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TravelmodifyActivity"/>
-        <activity android:name=".Game_resultActivity"></activity>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".InternetWebView" />
+        <activity android:name=".TravelmodifyActivity" />
+        <activity android:name=".Game_resultActivity" />
         <activity android:name=".Game_mainActivity" />
         <activity android:name=".Game_startActivity" />
         <activity android:name=".ClockMainActivity" />
