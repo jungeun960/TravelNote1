@@ -69,11 +69,19 @@
         </LinearLayout>
 
 
+        <Button
+            android:id="@+id/btn_Clock"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="60dp"
+            android:background="@android:color/transparent"
+            android:text="시간 모으기 " />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="10dp"
             android:text="고객 지원"
             android:textStyle="bold"
             />

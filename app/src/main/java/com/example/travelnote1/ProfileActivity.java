@@ -57,6 +57,15 @@ public class ProfileActivity extends AppCompatActivity {
         // 웹페이지 이동 , 건의하기
         Button button_web = (Button)findViewById(R.id.btn_Web);
         Button button_Sms = (Button)findViewById(R.id.btn_Sms);
+        Button btn_Clock = (Button)findViewById(R.id.btn_Clock);
+
+        btn_Clock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(getApplicationContext(), ClockMainActivity.class);
+                startActivity(intent3);
+            }
+        });
 
         button_web.setOnClickListener(new View.OnClickListener() {
             @Override
