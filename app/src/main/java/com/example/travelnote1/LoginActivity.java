@@ -21,6 +21,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -28,6 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -38,9 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private Context mContext;
     private LoginButton btn_facebook_login;
-    //private Button btn_custom_login;
     //private LoginCallback mLoginCallback;
     private CallbackManager mCallbackManager;
+    private String facebookuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,34 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(LoginResult loginResult) {
 
                         Arrays.asList("public_profile", "email");
-                        // App code
-                        //Person 클래스에 회원정보 담기
                         Log.e("Callback :: ", "onSuccess");
-                        AccessToken token = loginResult.getAccessToken();
 
-                        String email = "wjddms905@nate.com";
-                        Person person = new Person();
-                        person.setEt_email(email);
-                        person.setEt_name("최정은");
-                        person.setEt_pass("");
-                        person.setPhoto("file:///storage/sdcard1/Gallery/new/no.PNG");
-                        // Gson 인스턴스 생성
-                        Gson gson;
-                        gson = new GsonBuilder().create();
-                        // JSON 으로 변환
-                        String strContact = gson.toJson(person, Person.class);
+                        requestUserProfile(loginResult);
 
-                        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
-                        SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sp.edit();
-                        // 이메일을 key로 설정
-                        editor.putString(email, strContact); // JSON으로 변환한 객체를 저장한다.
-                        editor.putString("CurrentUser",email);
-                        editor.commit(); //완료한다.
-
-                        Intent intent = new Intent(getApplicationContext(),LodingActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
 
                     // 로그인 창을 닫을 경우, 호출됩니다.
@@ -184,10 +162,60 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void requestUserProfile(LoginResult loginResult){
+        GraphRequest request = GraphRequest.newMeRequest(
+                loginResult.getAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            facebookuser = response.getJSONObject().getString("email").toString();
+                            //String name = response.getJSONObject().getString("name").toString();         // 이름
+                            Log.e("Result1", facebookuser);
+                            Log.e("Result2", response.getJSONObject().toString());
+
+
+                            //Person 클래스에 회원정보 담기
+                            Person person = new Person();
+                            person.setEt_email(facebookuser);
+                            person.setEt_name("");
+                            person.setEt_pass("");
+                            person.setPhoto("file:///storage/sdcard1/Gallery/new/no.PNG");
+                            // Gson 인스턴스 생성
+                            Gson gson;
+                            gson = new GsonBuilder().create();
+                            // JSON 으로 변환
+                            String strContact = gson.toJson(person, Person.class);
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+                            SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            // 이메일을 key로 설정
+                            editor.putString(facebookuser, strContact); // JSON으로 변환한 객체를 저장한다.
+                            editor.putString("CurrentUser",facebookuser);
+                            editor.commit(); //완료한다.
+
+                            Intent intent = new Intent(getApplicationContext(),LodingActivity.class);
+                            startActivity(intent);
+                            finish();
+                            //Log.e("Result", name);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "email");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+
     }
 
 }
